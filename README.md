@@ -2,7 +2,7 @@
 
 A personal academic and engineering portfolio built with **Astro 7**, **Tailwind CSS 4**, Markdown, and structured TypeScript data. Static output, no backend, no analytics, and locally bundled fonts.
 
-Maintainer: **Doan Van Tai**. Intended URL: **https://vantai13.github.io/**.
+Maintainer: **Doan Van Tai**. Website: **https://taidv.id.vn/**.
 
 ## Run locally
 
@@ -35,7 +35,7 @@ npm run preview
 | Shared navigation and SEO | `src/layouts/BaseLayout.astro` |
 | Images | `public/images/` |
 
-The first two writing pieces are draft explanatory notes adapted from existing project documentation, dated 6 November 2026. They are not publications. Publication, LinkedIn, Scholar, and ORCID sections are intentionally absent until real entries are supplied. Roles requiring confirmation are excluded from both the website and this public source tree.
+The three writing pieces are draft explanatory notes adapted from existing project documentation, dated 6 November 2026. They are not publications. Publication, LinkedIn, Scholar, and ORCID sections are intentionally absent until real entries are supplied. Roles requiring confirmation are excluded from both the website and this public source tree.
 
 Light mode is the default. The theme toggle persists the visitor's choice in browser local storage. The public CV contains no phone number or student identifier.
 
@@ -68,7 +68,7 @@ Checks cover navigation, theme persistence, mobile menu, work filtering, interna
 
 ## Deployment
 
-This repository currently uses **Settings → Pages → Deploy from a branch → main → /(root)**. A `.nojekyll` marker lets GitHub serve the prebuilt Astro output directly. The editable source stays in `src/`; generated HTML and assets are committed in the repository root.
+This repository uses **Settings → Pages → Source → GitHub Actions**. The workflow at `.github/workflows/deploy.yml` installs dependencies with Node.js 24, checks types, builds Astro, uploads `dist/`, and deploys it to GitHub Pages. It runs after a push to `main` and can also be started from the Actions tab.
 
 After editing content or styles:
 
@@ -80,9 +80,11 @@ git commit -m "Update portfolio"
 git push origin main
 ```
 
-`pages:prepare` checks types, builds the static site, and copies the generated output to the publishing root. `.pages-artifacts.json` records generated files so stale build artifacts can be removed on later builds. Changes to the source alone must be rebuilt before publication. GitHub's Pages workflow then publishes the committed static files.
+`pages:prepare` checks types, builds the static site, and keeps the existing generated files in the repository root synchronized with the source. `.pages-artifacts.json` records those files so stale artifacts can be removed on later builds. The Actions workflow builds independently and publishes only `dist/`.
 
-The original deployment attempt could not change Pages to a custom Actions workflow because the available personal access token lacks the required settings access. This branch-based setup works with the repository's existing Pages configuration.
+The Source setting was changed to GitHub Actions by the repository owner. To inspect a publication, open the **Deploy portfolio to GitHub Pages** workflow in the Actions tab. A successful source push alone does not confirm that deployment has completed.
+
+The manual `.github/workflows/recover-pages.yml` workflow can cancel a stalled Pages deployment by its ID. Use it only after confirming the ID of the blocked deployment; it is not part of the normal publishing process.
 
 Canonical URLs and the sitemap read the domain from the repository's `CNAME` file, falling back to `https://vantai13.github.io`. The `SITE_URL` build environment variable can override that setting. When changing domains, update `CNAME`, configure the domain in GitHub Pages and DNS, then rebuild with `npm run pages:prepare`.
 
