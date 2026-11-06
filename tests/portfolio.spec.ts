@@ -63,7 +63,12 @@ test('all internal links, images, and PDF resolve; private fields are excluded',
     const text=await page.locator('body').innerText();
     expect(text).not.toMatch(/0395\s?082\s?873|395082873|InSecLab|Student ID|LinkedIn|ORCID|Google Scholar/);
     for(const href of await page.locator('a[href^="/"], img[src^="/"]').evaluateAll(els=>els.map(el=>el.getAttribute('href')||el.getAttribute('src')||'')))targets.add(href);
-    expect(await page.locator('img').evaluateAll(imgs=>imgs.every(img=>(img as HTMLImageElement).complete&&(img as HTMLImageElement).naturalWidth>0)),route).toBeTruthy();
+    // Lazy images load after entering the viewport; allow actual network delivery.
+    for (const image of await page.locator('img').all()) {
+      await image.scrollIntoViewIfNeeded();
+      await expect(image, route).toHaveJSProperty('complete', true);
+      await expect.poll(() => image.evaluate(img => (img as HTMLImageElement).naturalWidth), { message: route }).toBeGreaterThan(0);
+    }
   }
   for(const target of targets) {
     const [path,hash]=target.split('#');
