@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { profile, researchAdvisor } from '../data/profile';
+import { work } from '../data/work';
+const research = work.filter(project => project.kind === 'research');
+const currentStudy = research.find(project => project.slug === 'state-model-regret');
+---
+<BaseLayout title="Research — Doan Van Tai" description="Research on Network Digital Twins and routing decision quality: DT4N, State–Model–Regret, research questions, methods, and supervision.">
+  <div class="container page-header">
+    <a class="breadcrumb" href="/">← Home</a>
+    <p class="eyebrow">RESEARCH</p>
+    <h1>Networks, models,<br />and routing decisions.</h1>
+    <p class="page-description">I study how network information and response models affect routing decisions, through controlled simulation and SDN testbeds.</p>
+  </div>
+  <div class="container page-body">
+    <section class="research-overview" aria-labelledby="research-question">
+      <div class="prose">
+        <h2 id="research-question">Current research question</h2>
+        <p>{currentStudy?.researchQuestion}</p>
+        <h2>From DT4N to State–Model–Regret</h2>
+        <p>DT4N connects telemetry, a network model, and control actions in an SDN testbed. It provides the systems background for my current study of the decisions made with that information.</p>
+        <p>State–Model–Regret uses controlled two-path queueing models to separate the effects of current-state information and response modeling. It remains exploratory research; the case study records the comparison scope, evidence, and unresolved questions.</p>
+      </div>
+      <aside class="info-card research-context" aria-label="Research context">
+        <h2>Research supervision</h2>
+        <p>DT4N and State–Model–Regret are supervised by <a href={researchAdvisor.homepage} target="_blank" rel="noopener noreferrer">{researchAdvisor.name}</a>.</p>
+        <p>{researchAdvisor.affiliation}</p>
+        <h3>Research interests</h3>
+        <ul>{profile.interests.map(interest => <li>{interest}</li>)}</ul>
+        <a class="text-link" href="/writing/">Research notes <Icon name="arrow-right" size={15} /></a>
+      </aside>
+    </section>
+    <section aria-labelledby="research-studies">
+      <div class="section-heading"><div><h2 id="research-studies">Research studies</h2><p>Each case study includes my role, methods, evidence, and limitations.</p></div></div>
+      <div class="project-grid">{research.map(project => <ProjectCard project={project} />)}</div>
+    </section>
+    <p class="collection-footer">For implementation projects in SDN routing and cloud infrastructure, visit <a href="/projects/">Engineering Projects</a>.</p>
+  </div>
+</BaseLayout>

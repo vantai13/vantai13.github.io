@@ -1,6 +1,7 @@
 import { researchAdvisor } from './profile';
 
 export type Work = {
+  kind: 'research' | 'engineering';
   slug: string; index: string; title: string; shortTitle: string; category: string;
   status: string; period: string; summary: string; tags: string[];
   image?: string; imageAlt?: string; problem: string; motivation: string;
@@ -13,7 +14,7 @@ export type Work = {
 
 export const work: Work[] = [
   {
-    slug: 'network-digital-twin', index: '01',
+    kind: 'research', slug: 'network-digital-twin', index: '01',
     title: 'A digital twin for intelligent network management', shortTitle: 'Network Digital Twin',
     category: 'Network Digital Twins', status: 'Completed research project', period: '2025 — 2026',
     summary: 'Connecting an SDN testbed to a living network model, with bidirectional synchronization, what-if analysis, and a closed control loop.',
@@ -53,7 +54,7 @@ export const work: Work[] = [
     ],
   },
   {
-    slug: 'state-model-regret', index: '02',
+    kind: 'research', slug: 'state-model-regret', index: '02',
     title: 'When does better network information lead to better decisions?', shortTitle: 'State–Model–Regret',
     category: 'Decision-Making under Uncertainty', status: 'Research in progress', period: '2026 — Present',
     summary: 'Investigating how current-state information and action-response model fidelity interact in their effect on expected routing decision regret.',
@@ -84,7 +85,7 @@ export const work: Work[] = [
     ],
   },
   {
-    slug: 'deep-rl-routing', index: '03',
+    kind: 'engineering', slug: 'deep-rl-routing', index: '03',
     title: 'Learning adaptive routes in software-defined networks', shortTitle: 'Deep RL for SDN Routing',
     category: 'Learning for Networking', status: 'Academic project', period: 'February — May 2026',
     summary: 'A Dueling Double DQN routing agent, a custom Gymnasium environment, and a Mininet evaluation pipeline with an OSPF baseline.',
@@ -111,7 +112,7 @@ export const work: Work[] = [
     ],
   },
   {
-    slug: 'cloud-gitops', index: '04',
+    kind: 'engineering', slug: 'cloud-gitops', index: '04',
     title: 'From infrastructure as code to observable delivery on AWS', shortTitle: 'Cloud & GitOps on AWS',
     category: 'Cloud Infrastructure', status: 'Team course project', period: 'February — May 2026',
     summary: 'A three-tier application delivered to EKS through Terraform, GitHub Actions, and ArgoCD, with observable Blue/Green rollouts.',

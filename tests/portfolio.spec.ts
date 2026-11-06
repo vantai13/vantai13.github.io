@@ -8,8 +8,8 @@ test('home, project details, and contact links are usable', async ({ page }) => 
   await expect(page.getByRole('heading', { name: 'Doan Van Tai.' })).toBeVisible();
   await expect(page.getByAltText('Doan Van Tai looking out over the sea at sunset')).toBeVisible();
   await page.getByRole('link', { name: 'Explore my research' }).click();
-  await expect(page).toHaveURL(/#research$/);
-  await page.getByRole('link', { name: 'Read the project', exact:true }).click();
+  await expect(page).toHaveURL(/\/research\/$/);
+  await page.getByRole('link', { name: 'Read Network Digital Twin', exact:true }).click();
   await expect(page.getByRole('heading', { name:'A digital twin for intelligent network management' })).toBeVisible();
   await expect(page.getByRole('heading', { name:'Limitations & open questions' })).toBeVisible();
   await page.getByRole('link', { name:'Discuss this project' }).click();
@@ -42,21 +42,21 @@ test('work filters and research deep link show the correct cards', async ({page}
   await expect(page.locator('[data-project-category]:visible')).toHaveCount(4);
 });
 
-test('mobile navigation opens, closes, and follows a section', async ({page}) => {
+test('mobile navigation opens, closes, and opens the dedicated Experience page', async ({page}) => {
   await page.setViewportSize({width:390,height:844});
   await page.goto('/');
   const button=page.getByRole('button',{name:'Open navigation'});
   await button.click();
   await expect(page.locator('#main-navigation')).toBeVisible();
   await page.locator('#main-navigation').getByRole('link',{name:'Experience',exact:true}).click();
-  await expect(page).toHaveURL(/#experience$/);
+  await expect(page).toHaveURL(/\/experience\/$/);
   await expect(page.locator('#main-navigation')).toBeHidden();
   await button.click();await page.keyboard.press('Escape');
   await expect(button).toHaveAttribute('aria-expanded','false');
 });
 
 test('all internal links, images, and PDF resolve; private fields are excluded', async ({ page, request }) => {
-  const pages=['/','/about/','/cv/','/work/','/work/network-digital-twin/','/work/state-model-regret/','/work/deep-rl-routing/','/work/cloud-gitops/','/writing/','/writing/from-digital-twins-to-routing-decisions/','/writing/digital-twins-as-control-loops/','/writing/state-information-and-model-fidelity/'];
+  const pages=['/','/about/','/research/','/projects/','/experience/','/cv/','/work/','/work/network-digital-twin/','/work/state-model-regret/','/work/deep-rl-routing/','/work/cloud-gitops/','/writing/','/writing/from-digital-twins-to-routing-decisions/','/writing/digital-twins-as-control-loops/','/writing/state-information-and-model-fidelity/'];
   const targets=new Set<string>();
   for(const route of pages) {
     const response=await page.goto(route); expect(response?.status(),route).toBe(200);
@@ -89,14 +89,14 @@ test('responsive layouts fit the viewport and produce preview screenshots', asyn
   }
   await page.getByRole('button',{name:'Switch to dark mode'}).click();
   await page.screenshot({path:'logs/screenshots/home-1440-dark.png',fullPage:true});
-  for(const route of ['/work/network-digital-twin/','/about/','/writing/digital-twins-as-control-loops/','/cv/']){
+  for(const route of ['/research/','/projects/','/experience/','/work/network-digital-twin/','/about/','/writing/digital-twins-as-control-loops/','/cv/']){
     await page.setViewportSize({width:390,height:844});await page.goto(route);
     expect(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth),route).toBeTruthy();
   }
 });
 
 test('main templates pass automated WCAG A/AA checks in light and dark mode', async ({page})=>{
-  for(const route of ['/','/work/','/work/network-digital-twin/','/about/','/cv/','/writing/digital-twins-as-control-loops/']){
+  for(const route of ['/','/research/','/projects/','/experience/','/work/','/work/network-digital-twin/','/about/','/cv/','/writing/digital-twins-as-control-loops/']){
     await page.goto(route);
     const result=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21aa']).analyze();
     expect(result.violations,JSON.stringify(result.violations.map(v=>({id:v.id,nodes:v.nodes.map(n=>n.target)})))).toEqual([]);

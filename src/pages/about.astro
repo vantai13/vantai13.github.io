@@ -4,7 +4,7 @@ import Icon from '../components/Icon.astro';
 import { profile } from '../data/profile';
 ---
 <BaseLayout title="About — Doan Van Tai" description="Doan Van Tai’s research journey from building an SDN network digital twin to studying routing decision quality under imperfect information.">
-  <div class="container page-header"><a class="breadcrumb" href="/">← Home</a><p class="eyebrow">ABOUT ME</p><h1>Computer networks,<br />models, and decisions.</h1></div>
+  <div class="container page-header"><a class="breadcrumb" href="/">← Home</a><p class="eyebrow">ABOUT ME</p><h1>About Doan Van Tai.</h1><p class="page-description">My background, research journey, and the work I want to pursue.</p></div>
   <div class="container page-body about-page-grid">
     <article class="prose">
       <p>{profile.bio}</p>
@@ -20,6 +20,9 @@ import { profile } from '../data/profile';
 
       <h2>How I work</h2>
       <p>I keep model assumptions, configurations, and measurement scripts with the code. I compare results with a defined reference and document failed targets alongside successful runs.</p>
+      <h2>Research interests</h2>
+      <ul>{profile.interests.map(interest => <li>{interest}</li>)}</ul>
+      <p><a href="/research/">Explore my research studies and current research question →</a></p>
       <h2>Education</h2>
       <p><strong>University of Information Technology, VNU-HCM</strong><br/>B.Eng. Computer Networks and Communications<br/>2023–2027 (expected) · GPA 3.52 / 4.00</p>
       <h2>Technical toolkit</h2>

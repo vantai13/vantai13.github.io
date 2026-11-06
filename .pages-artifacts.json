@@ -1,7 +1,7 @@
 {
   "files": [
     "404.html",
-    "_astro/BaseLayout.s8qQriJt.css",
+    "_astro/BaseLayout.BD4Bgqey.css",
     "_astro/dm-sans-latin-ext-wght-normal.BOFOeGcA.woff2",
     "_astro/dm-sans-latin-wght-normal.Xz1IZZA0.woff2",
     "_astro/newsreader-latin-400-italic.CEihAR-f.woff2",
@@ -10,6 +10,7 @@
     "_astro/newsreader-latin-400-normal.gRTjlS2D.woff",
     "about/index.html",
     "cv/index.html",
+    "experience/index.html",
     "favicon.svg",
     "files/DoanVanTai_CV.pdf",
     "images/dt4n-architecture.png",
@@ -20,6 +21,8 @@
     "index.html",
     "licenses/dm-sans.txt",
     "licenses/newsreader.txt",
+    "projects/index.html",
+    "research/index.html",
     "robots.txt",
     "sitemap.xml",
     "work/cloud-gitops/index.html",

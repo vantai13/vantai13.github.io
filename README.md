@@ -29,15 +29,27 @@ npm run preview
 | Research and project case studies | `src/data/work.ts` |
 | Homepage composition | `src/pages/index.astro` |
 | About | `src/pages/about.astro` |
+| Research overview | `src/pages/research.astro` |
+| Engineering projects | `src/pages/projects.astro` |
+| Experience and education | `src/pages/experience.astro` |
 | Public CV | `src/pages/cv.astro` |
 | Writing | `src/pages/writing/*.md` |
 | Colors, typography, responsive layout | `src/styles/global.css` |
 | Shared navigation and SEO | `src/layouts/BaseLayout.astro` |
+| Main menu destinations | `src/data/navigation.ts` |
 | Images | `public/images/` |
 
 The three writing pieces are draft explanatory notes adapted from existing project documentation, dated 6 November 2026. They are not publications. Publication, LinkedIn, Scholar, and ORCID sections are intentionally absent until real entries are supplied. Roles requiring confirmation are excluded from both the website and this public source tree.
 
 Light mode is the default. The theme toggle persists the visitor's choice in browser local storage. The public CV contains no phone number or student identifier.
+
+## Page structure
+
+The main menu opens dedicated pages: Home, About, Research, Projects, Experience, Writing, and CV. Homepage sections remain short previews. The original homepage anchor URLs still work for existing links.
+
+Research and engineering projects share data in `src/data/work.ts`; each entry has an explicit `kind` field. `ProjectCard.astro` renders collection cards, and `ExperienceTimeline.astro` supplies the full experience timeline and its shorter homepage version. Case studies retain their `/work/<slug>/` URLs and link back to the corresponding Research or Projects overview.
+
+`/work/` remains a combined archive. Its filter is stored in the URL and follows browser Back/Forward. The main menu marks the current page or case-study section. Mobile navigation supports keyboard focus, Escape, closing on outside interaction, and short landscape screens.
 
 ## Regenerate the public PDF
 
@@ -64,7 +76,7 @@ With the production preview running:
 npm run test:e2e
 ```
 
-Checks cover navigation, theme persistence, mobile menu, work filtering, internal links, images, CV availability, responsive overflow, and automated WCAG A/AA rules on representative templates. Screenshots and JSON results go to the ignored `logs/` directory. Automated checks do not replace a full manual accessibility review.
+Checks cover desktop and mobile page navigation, active states, breadcrumbs, direct visits, refresh, browser history, keyboard focus, theme persistence, work filters, internal links, images, diagram captions, CV availability, responsive overflow, sitemap/social metadata, and automated WCAG A/AA rules on representative templates. Screenshots and JSON results go to the ignored `logs/` directory. Automated checks do not replace a full manual accessibility review.
 
 ## Deployment
 

@@ -5,11 +5,11 @@ import '@fontsource/newsreader/latin-400.css';
 import '@fontsource/newsreader/latin-400-italic.css';
 import Icon from '../components/Icon.astro';
 import { profile } from '../data/profile';
-interface Props { title?: string; description?: string; article?: boolean; }
+import { navigation, type NavigationSection } from '../data/navigation';
+interface Props { title?: string; description?: string; article?: boolean; activeSection?: NavigationSection; }
 const { title = 'Doan Van Tai — Networks, research & engineering', description = 'Doan Van Tai is a final-year UIT student studying routing decision quality under imperfect information, through Network Digital Twins, controlled simulation, and SDN testbeds.', article = false } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
-const home = Astro.url.pathname === '/';
-const nav = [['About','about'],['Research','research'],['Projects','projects'],['Experience','experience'],['Writing','writing']];
+const activeSection = Astro.props.activeSection ?? navigation.find(item => item.href === '/' ? Astro.url.pathname === '/' : Astro.url.pathname.startsWith(item.href))?.section;
 ---
 <!doctype html>
 <html lang="en" data-theme="light">
@@ -32,18 +32,18 @@ const nav = [['About','about'],['Research','research'],['Projects','projects'],[
       <div class="header-inner">
         <a class="brand" href="/" aria-label="Doan Van Tai — Home"><span class="brand-mark">t<span>·</span></span><span>Doan Van Tai<span class="brand-subtitle">Research & engineering</span></span></a>
         <nav id="main-navigation" class="main-nav" aria-label="Main navigation">
-          {nav.map(([label,id]) => <a href={home ? `#${id}` : `/#${id}`}>{label}</a>)}
-          <a class="nav-cv" href="/cv/">CV <Icon size={13} /></a>
+          {navigation.map(item => <a href={item.href} data-nav-section={item.section} class:list={{ 'nav-cv': item.section === 'cv' }} aria-current={activeSection === item.section ? 'page' : undefined}>{item.label}{item.section === 'cv' && <Icon size={13} />}</a>)}
+          <a class="mobile-contact-link" href="/#contact">Contact <Icon size={14} /></a>
         </nav>
         <div class="header-actions">
           <button class="icon-button theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><Icon name="moon" class="moon-icon" size={19}/><Icon name="sun" class="sun-icon" size={19}/></button>
-          <a class="header-contact" href={home ? '#contact' : '/#contact'}>Let’s connect <Icon size={14}/></a>
+          <a class="header-contact" href="/#contact">Let’s connect <Icon size={14}/></a>
           <button class="icon-button menu-toggle" type="button" aria-label="Open navigation" aria-controls="main-navigation" aria-expanded="false"><Icon name="menu" class="menu-open-icon"/><Icon name="close" class="menu-close-icon"/></button>
         </div>
       </div>
     </header>
     <main id="main"><slot /></main>
-    <footer class="site-footer"><div class="container footer-inner"><a class="footer-name" href="/">Doan Van Tai<span>Networks. Questions. Systems.</span></a><span>© {new Date().getFullYear()} Doan Van Tai</span><a href="https://astro.build" target="_blank" rel="noopener noreferrer">Built with Astro <Icon size={13}/></a></div></footer>
+    <footer class="site-footer"><div class="container footer-inner"><a class="footer-name" href="/">Doan Van Tai<span>Networks. Questions. Systems.</span></a><nav class="footer-nav" aria-label="Footer navigation">{navigation.map(item => <a href={item.href} aria-current={activeSection === item.section ? 'page' : undefined}>{item.label}</a>)}<a href="/#contact">Contact</a></nav><div class="footer-meta"><span>© {new Date().getFullYear()} Doan Van Tai</span><a href="https://astro.build" target="_blank" rel="noopener noreferrer">Built with Astro <Icon size={13}/></a></div></div></footer>
     <script>
       function initialize() {
         const themeToggle = document.querySelector<HTMLButtonElement>('.theme-toggle');
@@ -61,10 +61,23 @@ const nav = [['About','about'],['Research','research'],['Projects','projects'],[
           updateThemeLabel();
         });
         const menu = document.querySelector<HTMLButtonElement>('.menu-toggle');
+        const navigation = document.querySelector<HTMLElement>('#main-navigation');
+        const header = document.querySelector<HTMLElement>('.site-header');
         const closeMenu = () => { menu?.setAttribute('aria-expanded','false'); menu?.setAttribute('aria-label','Open navigation'); document.querySelector('.site-header')?.classList.remove('menu-is-open'); };
-        menu?.addEventListener('click', () => { const open = menu.getAttribute('aria-expanded') !== 'true'; menu.setAttribute('aria-expanded',String(open)); menu.setAttribute('aria-label',open ? 'Close navigation' : 'Open navigation'); document.querySelector('.site-header')?.classList.toggle('menu-is-open',open); });
+        menu?.addEventListener('click', () => {
+          const open = menu.getAttribute('aria-expanded') !== 'true';
+          menu.setAttribute('aria-expanded', String(open));
+          menu.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+          header?.classList.toggle('menu-is-open', open);
+          if (open) navigation?.querySelector<HTMLAnchorElement>('a')?.focus();
+        });
         document.querySelectorAll('.main-nav a').forEach(a=>a.addEventListener('click',closeMenu));
-        document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu();});
+        document.addEventListener('keydown', event => {
+          if (event.key === 'Escape' && menu?.getAttribute('aria-expanded') === 'true') { closeMenu(); menu.focus(); }
+        });
+        document.addEventListener('click', event => { if (event.target instanceof Node && !header?.contains(event.target)) closeMenu(); });
+        document.addEventListener('focusin', event => { if (event.target instanceof Node && !header?.contains(event.target)) closeMenu(); });
+        window.matchMedia('(max-width: 1000px)').addEventListener('change', closeMenu);
         document.querySelector<HTMLButtonElement>('[data-copy-email]')?.addEventListener('click', async (event) => {
           const button = event.currentTarget as HTMLButtonElement;
           const message = document.querySelector('[data-copy-status]');
@@ -72,20 +85,29 @@ const nav = [['About','about'],['Research','research'],['Projects','projects'],[
           catch { if(message)message.textContent='Select the email address to copy it.'; }
         });
         const filters = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
-        filters.forEach(button=>button.addEventListener('click',()=>{
-          filters.forEach(item=>item.setAttribute('aria-pressed',String(item===button)));
-          document.querySelectorAll<HTMLElement>('[data-project-category]').forEach(card=>{card.hidden=button.dataset.filter!=='all'&&card.dataset.projectCategory!==button.dataset.filter;});
+        const applyFilter = (value: string | null) => {
+          const filter = value === 'research' || value === 'engineering' ? value : 'all';
+          filters.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.filter === filter)));
+          document.querySelectorAll<HTMLElement>('[data-project-category]').forEach(card=>{card.hidden=filter!=='all'&&card.dataset.projectCategory!==filter;});
           const count = [...document.querySelectorAll<HTMLElement>('[data-project-category]')].filter(card=>!card.hidden).length;
           const status = document.querySelector('[data-filter-status]');if(status)status.textContent=`${count} ${count===1?'project':'projects'} shown`;
-        }));
-        const initialFilter = new URLSearchParams(location.search).get('filter');
-        if (initialFilter === 'research' || initialFilter === 'engineering') {
-          document.querySelector<HTMLButtonElement>(`[data-filter="${initialFilter}"]`)?.click();
-        }
-        const links = document.querySelectorAll<HTMLAnchorElement>('.main-nav a[href^="#"]');
-        if ('IntersectionObserver' in window && links.length) {
-          const observer = new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting)links.forEach(link=>{if(link.hash===`#${entry.target.id}`)link.setAttribute('aria-current','location');else link.removeAttribute('aria-current');});}),{rootMargin:'-15% 0px -60% 0px'});
-          links.forEach(link=>{const section=document.querySelector(link.hash);if(section)observer.observe(section);});
+          document.querySelectorAll<HTMLAnchorElement>('[data-nav-section]').forEach(link => {
+            const section = filter === 'engineering' ? 'projects' : filter;
+            if (section === link.dataset.navSection) link.setAttribute('aria-current', 'page');
+            else link.removeAttribute('aria-current');
+          });
+        };
+        if (filters.length) {
+          applyFilter(new URLSearchParams(location.search).get('filter'));
+          filters.forEach(button => button.addEventListener('click', () => {
+            const url = new URL(location.href);
+            const filter = button.dataset.filter || 'all';
+            if (filter === 'all') url.searchParams.delete('filter');
+            else url.searchParams.set('filter', filter);
+            if (url.href !== location.href) history.pushState(null, '', url.pathname + url.search + url.hash);
+            applyFilter(filter);
+          }));
+          window.addEventListener('popstate', () => applyFilter(new URLSearchParams(location.search).get('filter')));
         }
       }
       initialize();

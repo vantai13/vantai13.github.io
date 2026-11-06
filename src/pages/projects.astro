@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { work } from '../data/work';
+const projects = work.filter(project => project.kind === 'engineering');
+---
+<BaseLayout title="Engineering Projects — Doan Van Tai" description="Engineering case studies in deep reinforcement learning for SDN routing and cloud delivery on AWS with Terraform, Kubernetes, and GitOps.">
+  <div class="container page-header">
+    <a class="breadcrumb" href="/">← Home</a>
+    <p class="eyebrow">ENGINEERING PROJECTS</p>
+    <h1>Engineering projects.</h1>
+    <p class="page-description">Selected implementations in SDN routing and cloud infrastructure, from the decision logic to the systems used to run and inspect it.</p>
+  </div>
+  <section class="container page-body" aria-label="Engineering project collection">
+    <div class="project-grid">{projects.map(project => <ProjectCard project={project} />)}</div>
+    <div class="prose collection-context">
+      <h2>Implementation and evaluation</h2>
+      <p>The routing project connects a learned policy to a Mininet testbed and an OSPF comparison pipeline. The AWS course project covers infrastructure as code, GitOps delivery, rollout analysis, and observability.</p>
+      <p>Case studies distinguish my individual work from team contributions and link to the original repositories. They also record evaluation limits and whether a demo is available.</p>
+      <p>My Network Digital Twin and State–Model–Regret studies are described separately under <a href="/research/">Research</a>. You can also browse the <a href="/work/">combined work archive</a>.</p>
+    </div>
+  </section>
+</BaseLayout>
