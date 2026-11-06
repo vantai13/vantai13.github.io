@@ -1,0 +1,94 @@
+---
+import '../styles/global.css';
+import '@fontsource-variable/dm-sans';
+import '@fontsource/newsreader/latin-400.css';
+import '@fontsource/newsreader/latin-400-italic.css';
+import Icon from '../components/Icon.astro';
+import { profile } from '../data/profile';
+interface Props { title?: string; description?: string; article?: boolean; }
+const { title = 'Doan Van Tai — Networks, research & engineering', description = 'Doan Van Tai is a final-year UIT student exploring Network Digital Twins, learning for networking, and cloud engineering. Research, projects, and working notes.', article = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const home = Astro.url.pathname === '/';
+const nav = [['About','about'],['Research','research'],['Projects','projects'],['Experience','experience'],['Writing','writing']];
+---
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} /><meta name="author" content={profile.name} />
+    <meta name="theme-color" content="#f8f9f6" /><link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:type" content={article ? 'article' : 'website'} /><meta property="og:title" content={title} /><meta property="og:description" content={description} /><meta property="og:url" content={canonical} /><meta property="og:image" content={new URL('/images/tai-sunset.jpg', Astro.site)} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>{title}</title>
+    <script is:inline>
+      try { document.documentElement.dataset.theme = localStorage.getItem('theme') === 'dark' ? 'dark' : 'light'; } catch {}
+    </script>
+    <script type="application/ld+json" set:html={JSON.stringify({'@context':'https://schema.org','@type':'Person',name:profile.name,alternateName:profile.vietnameseName,url:Astro.site?.href,sameAs:[profile.github],email:profile.email,description:'Computer Networks and Communications student at UIT, VNU-HCM',affiliation:{'@type':'CollegeOrUniversity',name:profile.university}})} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="/" aria-label="Doan Van Tai — Home"><span class="brand-mark">t<span>·</span></span><span>Doan Van Tai<span class="brand-subtitle">Research & engineering</span></span></a>
+        <nav id="main-navigation" class="main-nav" aria-label="Main navigation">
+          {nav.map(([label,id]) => <a href={home ? `#${id}` : `/#${id}`}>{label}</a>)}
+          <a class="nav-cv" href="/cv/">CV <Icon size={13} /></a>
+        </nav>
+        <div class="header-actions">
+          <button class="icon-button theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><Icon name="moon" class="moon-icon" size={19}/><Icon name="sun" class="sun-icon" size={19}/></button>
+          <a class="header-contact" href={home ? '#contact' : '/#contact'}>Let’s connect <Icon size={14}/></a>
+          <button class="icon-button menu-toggle" type="button" aria-label="Open navigation" aria-controls="main-navigation" aria-expanded="false"><Icon name="menu" class="menu-open-icon"/><Icon name="close" class="menu-close-icon"/></button>
+        </div>
+      </div>
+    </header>
+    <main id="main"><slot /></main>
+    <footer class="site-footer"><div class="container footer-inner"><a class="footer-name" href="/">Doan Van Tai<span>Networks. Questions. Systems.</span></a><span>© {new Date().getFullYear()} Doan Van Tai</span><a href="https://astro.build" target="_blank" rel="noopener noreferrer">Built with Astro <Icon size={13}/></a></div></footer>
+    <script>
+      function initialize() {
+        const themeToggle = document.querySelector<HTMLButtonElement>('.theme-toggle');
+        const updateThemeLabel = () => {
+          const dark = document.documentElement.dataset.theme === 'dark';
+          themeToggle?.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+          themeToggle?.setAttribute('aria-pressed', String(dark));
+          document.querySelector('meta[name="theme-color"]')?.setAttribute('content', dark ? '#151e1c' : '#f8f9f6');
+        };
+        updateThemeLabel();
+        themeToggle?.addEventListener('click', () => {
+          const theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+          document.documentElement.dataset.theme = theme;
+          try { localStorage.setItem('theme', theme); } catch {}
+          updateThemeLabel();
+        });
+        const menu = document.querySelector<HTMLButtonElement>('.menu-toggle');
+        const closeMenu = () => { menu?.setAttribute('aria-expanded','false'); menu?.setAttribute('aria-label','Open navigation'); document.querySelector('.site-header')?.classList.remove('menu-is-open'); };
+        menu?.addEventListener('click', () => { const open = menu.getAttribute('aria-expanded') !== 'true'; menu.setAttribute('aria-expanded',String(open)); menu.setAttribute('aria-label',open ? 'Close navigation' : 'Open navigation'); document.querySelector('.site-header')?.classList.toggle('menu-is-open',open); });
+        document.querySelectorAll('.main-nav a').forEach(a=>a.addEventListener('click',closeMenu));
+        document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu();});
+        document.querySelector<HTMLButtonElement>('[data-copy-email]')?.addEventListener('click', async (event) => {
+          const button = event.currentTarget as HTMLButtonElement;
+          const message = document.querySelector('[data-copy-status]');
+          try { await navigator.clipboard.writeText(button.dataset.copyEmail || ''); if(message)message.textContent='Email copied'; }
+          catch { if(message)message.textContent='Select the email address to copy it.'; }
+        });
+        const filters = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
+        filters.forEach(button=>button.addEventListener('click',()=>{
+          filters.forEach(item=>item.setAttribute('aria-pressed',String(item===button)));
+          document.querySelectorAll<HTMLElement>('[data-project-category]').forEach(card=>{card.hidden=button.dataset.filter!=='all'&&card.dataset.projectCategory!==button.dataset.filter;});
+          const count = [...document.querySelectorAll<HTMLElement>('[data-project-category]')].filter(card=>!card.hidden).length;
+          const status = document.querySelector('[data-filter-status]');if(status)status.textContent=`${count} ${count===1?'project':'projects'} shown`;
+        }));
+        const initialFilter = new URLSearchParams(location.search).get('filter');
+        if (initialFilter === 'research' || initialFilter === 'engineering') {
+          document.querySelector<HTMLButtonElement>(`[data-filter="${initialFilter}"]`)?.click();
+        }
+        const links = document.querySelectorAll<HTMLAnchorElement>('.main-nav a[href^="#"]');
+        if ('IntersectionObserver' in window && links.length) {
+          const observer = new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting)links.forEach(link=>{if(link.hash===`#${entry.target.id}`)link.setAttribute('aria-current','location');else link.removeAttribute('aria-current');});}),{rootMargin:'-15% 0px -60% 0px'});
+          links.forEach(link=>{const section=document.querySelector(link.hash);if(section)observer.observe(section);});
+        }
+      }
+      initialize();
+    </script>
+  </body>
+</html>

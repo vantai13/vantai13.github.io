@@ -1,0 +1,22 @@
+---
+interface Props { variant?: 'routing' | 'research'; }
+const { variant = 'routing' } = Astro.props;
+---
+<div class:list={['network-figure', variant]}>
+  <svg viewBox="0 0 520 280" role="img" aria-label={variant === 'routing' ? 'Conceptual routing topology: a learned path through a network of connected switches' : 'Conceptual relationship between network state, response model, and routing decision'}>
+    <defs><pattern id={`dots-${variant}`} width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".65" fill="currentColor" opacity=".12" /></pattern></defs>
+    <rect width="520" height="280" fill={`url(#dots-${variant})`} />
+    {variant === 'routing' ? <>
+      <g class="network-lines" fill="none" stroke-width="1.3"><path d="M75 140 188 70 330 70 445 140 330 210 188 210 75 140M188 70l142 140M188 210 330 70M188 70v140m142-140v140" /></g>
+      <path d="M75 140 188 210 330 210 445 140" fill="none" class="active-route" stroke-width="3" />
+      <g class="network-nodes">{[[75,140],[188,70],[330,70],[445,140],[330,210],[188,210]].map(([cx,cy])=><g><circle cx={cx} cy={cy} r="15" /><circle cx={cx} cy={cy} r="4" class="node-center" /></g>)}</g>
+      <g class="network-labels"><text x="75" y="108" text-anchor="middle">SOURCE</text><text x="445" y="108" text-anchor="middle">DESTINATION</text><text x="260" y="258" text-anchor="middle">STATE → POLICY → ROUTE</text></g>
+    </> : <>
+      <path class="network-lines" d="M138 105H260V185M382 105H260" fill="none" stroke-width="1.5" />
+      <g class="network-nodes"><rect x="55" y="57" width="166" height="70" rx="8" /><rect x="299" y="57" width="166" height="70" rx="8" /><rect x="177" y="181" width="166" height="58" rx="8" /></g>
+      <g class="network-labels"><text x="138" y="87" text-anchor="middle">NETWORK STATE</text><text x="138" y="108" text-anchor="middle" opacity=".65">What do we observe?</text><text x="382" y="87" text-anchor="middle">RESPONSE MODEL</text><text x="382" y="108" text-anchor="middle" opacity=".65">What do we expect?</text><text x="260" y="215" text-anchor="middle">ROUTING DECISION</text></g>
+      <circle cx="260" cy="142" r="5" class="route-dot" />
+    </>}
+  </svg>
+  <span class="figure-caption">{variant === 'routing' ? 'Routing concept · illustrative topology' : 'Research question · conceptual diagram'}</span>
+</div>
