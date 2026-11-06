@@ -6,33 +6,29 @@ category: Research question
 date: '2026-11-06'
 ---
 
-A routing controller has to decide with what it knows. Two parts of that knowledge are easy to combine in conversation, but useful to separate in an experiment.
+A routing decision uses observations of the network and a model of the response to an action. In State–Model–Regret, I treat these as separate factors: **current-state information** and **action-response model fidelity**.
 
-One is the controller’s information about the **current network state**. The other is its **model of what an action will do**.
+## Current-state information
 
-## What do we observe?
+Telemetry collected at an earlier time can describe a state that has changed by the time the controller acts. The current study starts from an earlier backlog observation and uses a specified posterior over the current state.
 
-Telemetry may arrive late. Measurements may be noisy or incomplete. Even a correct observation can describe a state that has already changed by the time the controller acts.
+The current-state benchmark receives additional oracle information, including hidden modes. This defines an information comparison within the model. Implementing a feasible telemetry refresh requires a separate evaluation.
 
-Improving this side of the system means changing the information available about the state. That could involve freshness, measurement quality, or the way the state is represented.
+## Action-response modeling
 
-## What do we expect to happen?
+A response model estimates what happens after a route is kept or changed. Switching traffic changes the load on both paths, so the cost comparison depends on that response.
 
-A response model predicts the consequences of a routing action. A controller may know the present state reasonably well while still mispredicting the load or queueing response to a route change.
-
-Conversely, it may have a useful action-response model but feed that model stale information. These are different sources of uncertainty, and they need not have the same effect on a decision.
+The current model comparison holds parameters and posterior information fixed. It compares costs obtained from mean rollouts with true expected future costs. Parameter estimation errors and structural model errors are outside this comparison.
 
 ## The question I’m exploring
 
 The State–Model–Regret project asks how improvements in these two factors differ and interact in their effect on expected decision regret for load-changing routing actions.
 
-The intention is to connect information quality to decision quality, rather than using prediction accuracy alone as the final outcome. That requires a clear decision setting, a suitable reference, and an evaluation that keeps the modeling assumptions visible.
+The decision setting, reference policy, and probability law are specified together so the comparisons use the same objective. The [research journey note](/writing/from-digital-twins-to-routing-decisions/) explains how this connects to DT4N and defines expected decision regret.
 
 ## Where the work stands
 
-This is ongoing exploratory research. The repository records inconclusive results, diagnostic analysis, and directions that need reformulation. It is too early to present the project as a confirmed scientific contribution.
-
-Separating the question from the claim is part of the work. A simulation can be implemented correctly while the explanation it was meant to test remains unsupported.
+This is ongoing exploratory research. The repository records inconclusive results, diagnostic analyses, and explanations that need reformulation. The implementation and numerical checks support further investigation; they do not confirm the hypotheses being studied.
 
 ## Research notebook
 

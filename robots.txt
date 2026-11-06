@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://vantai13.github.io/sitemap.xml
+Sitemap: https://taidv.id.vn/sitemap.xml

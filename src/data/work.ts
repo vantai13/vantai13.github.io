@@ -1,7 +1,12 @@
+import { researchAdvisor } from './profile';
+
 export type Work = {
   slug: string; index: string; title: string; shortTitle: string; category: string;
   status: string; period: string; summary: string; tags: string[];
   image?: string; imageAlt?: string; problem: string; motivation: string;
+  researchQuestion?: string;
+  advisor?: { name: string; affiliation: string; homepage: string };
+  reflection?: { text: string; linkLabel: string; href: string };
   role: string; approach: string[]; results: {label: string; value: string; context: string}[];
   evidence: string; limitations: string[]; links: {label: string; url: string}[];
 };
@@ -14,9 +19,15 @@ export const work: Work[] = [
     summary: 'Connecting an SDN testbed to a living network model, with bidirectional synchronization, what-if analysis, and a closed control loop.',
     tags: ['Mininet', 'Eclipse Ditto', 'Python', 'Ryu'],
     image: '/images/dt4n-dashboard.png', imageAlt: 'DT4N project dashboard showing the actual network topology, link state and throughput controls',
-    problem: 'Network telemetry is useful only when it can support a timely and appropriate operational decision. A monitoring dashboard alone does not close the gap between observing the network and acting on it.',
-    motivation: 'I wanted to build a network digital twin whose state could be inspected, whose assumptions could be tested, and whose commands could be traced back to observed changes in a testbed.',
-    role: 'Project Lead for a UIT-supported undergraduate research project, advised by Dr. Huynh Van Dang. My work covered the SDN testbed, synchronization layer, anomaly detector, and closed-loop controller.',
+    problem: 'Network monitoring provides telemetry, but an operational response also requires a model of the network, a way to issue commands, and evidence that the intended change took effect. DT4N brings these paths together in a controlled SDN testbed.',
+    motivation: 'The technical objective was to build an inspectable Network Digital Twin: synchronize a Mininet / Ryu testbed with Eclipse Ditto, explore bounded what-if scenarios, and trace control actions through the returning network state.',
+    role: 'Project Lead for a UIT-supported undergraduate research project. I built the SDN testbed and synchronization layer, implemented the anomaly detector, and developed the closed-loop controller. The work also includes experiment scripts and archived evaluation artifacts.',
+    advisor: researchAdvisor,
+    reflection: {
+      text: 'DT4N connects observations, a network model, and control actions in one system. Evaluating that system raises a further question: how do the observations and response model affect the quality of the decision itself? This connects the engineering project to my ongoing State–Model–Regret research.',
+      linkLabel: 'Explore the next research question',
+      href: '/work/state-model-regret/',
+    },
     approach: [
       'Built a Mininet / Ryu SDN testbed and represented hosts and links as Eclipse Ditto Things.',
       'Implemented upward telemetry synchronization and a downward command path, verifying control actions through the returning network state.',
@@ -47,24 +58,29 @@ export const work: Work[] = [
     category: 'Decision-Making under Uncertainty', status: 'Research in progress', period: '2026 — Present',
     summary: 'Investigating how current-state information and action-response model fidelity interact in their effect on expected routing decision regret.',
     tags: ['Routing', 'Queueing Systems', 'Uncertainty', 'Simulation'],
-    problem: 'A controller can see an imperfect state of the network and use an imperfect model of what its actions will do. Improving either source of information may affect the quality of the resulting decision in different ways.',
-    motivation: 'The project asks: for load-changing routing actions, how do improvements in current-state information and action-response model fidelity differ and interact in their effect on expected decision regret?',
-    role: 'Ongoing research and development of the modeling, simulation, evaluation, and evidence workflow. The repository keeps exploratory results and their limitations separate from confirmatory claims.',
+    problem: 'A routing change moves load between paths. A controller must choose using information about the current state and a model of the response to that change. Prediction accuracy alone does not tell us how either factor affects the cost of the selected action.',
+    motivation: 'Following the systems work in DT4N, this project examines the decisions made with a network model. The goal is to understand the separate and interacting effects of state information and response-model fidelity within a specified decision setting.',
+    researchQuestion: 'For load-changing routing actions, how do improvements in current-state information and action-response model fidelity differ and interact in their effect on expected decision regret?',
+    role: 'I work on queueing-based models, simulation, and the evaluation workflow for this ongoing study. The repository records experimental designs, exploratory analyses, diagnostic results, and their limitations.',
+    advisor: researchAdvisor,
     approach: [
-      'Model state information and action-response model fidelity as distinct experimental factors.',
-      'Study stale telemetry, model error, queueing dynamics, and counterfactual routing decisions.',
-      'Track expected decision regret and preserve predictions, experiment configurations, and result artifacts.',
-      'Use simulation and controlled exploratory analysis to examine mechanisms before making broader networking claims.',
+      'Use a controlled two-path queueing model in which switching a managed load changes the load on both paths.',
+      'Compare four decision pipelines under the same plant, action set, objective, and probability law, varying state information and response modeling separately.',
+      'In the specified model comparison, hold parameters and posterior information fixed; compare mean-rollout costs with true expected future costs.',
+      'Evaluate expected decision regret against a reference with current-state and response-law information. The reference does not know realized future traffic. Preserve predictions, configurations, and result artifacts for inspection.',
     ],
     results: [],
     evidence: 'The repository records exploratory and diagnostic results. Current status is ongoing research; no publication, novelty claim, or confirmed hypothesis is asserted here.',
     limitations: [
       'The Phase 6 result is inconclusive and calls for reformulating the predictor. Phase 7 remains exploratory.',
       'Numerical and model checks do not by themselves establish research validity or real-network generalization.',
+      'The current-state benchmark includes hidden-mode oracle information. It is not a deployed telemetry refresh mechanism, and it does not establish that fresher telemetry is harmful.',
+      'The model comparison has a fixed scope: shared parameters and posterior, with different representations of future cost. It does not test arbitrary parameter or structural errors, or establish a general ranking of state information versus model fidelity.',
     ],
     links: [
       { label: 'Research repository', url: 'https://github.com/vantai13/state-model-regret' },
       { label: 'Research notebook', url: 'https://github.com/vantai13/state-model-regret/tree/main/notes' },
+      { label: 'Decision setting & definitions', url: 'https://github.com/vantai13/state-model-regret/blob/main/notes/01_definitions_v1_3.md' },
     ],
   },
   {

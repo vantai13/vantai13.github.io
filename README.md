@@ -84,7 +84,7 @@ git push origin main
 
 The original deployment attempt could not change Pages to a custom Actions workflow because the available personal access token lacks the required settings access. This branch-based setup works with the repository's existing Pages configuration.
 
-To move to a custom domain, update `site` in `astro.config.mjs` or set the `SITE_URL` build environment variable, configure the domain in GitHub Pages, and add the appropriate DNS records. Canonical URLs and the generated sitemap use that site setting.
+Canonical URLs and the sitemap read the domain from the repository's `CNAME` file, falling back to `https://vantai13.github.io`. The `SITE_URL` build environment variable can override that setting. When changing domains, update `CNAME`, configure the domain in GitHub Pages and DNS, then rebuild with `npm run pages:prepare`.
 
 ## Evidence and asset provenance
 

@@ -3,7 +3,32 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
 import { profile } from '../data/profile';
 ---
-<BaseLayout title="About — Doan Van Tai" description="A little more about Doan Van Tai, a Computer Networks student at UIT working toward a career as a Research Engineer.">
-  <div class="container page-header"><a class="breadcrumb" href="/">← Home</a><p class="eyebrow">A LITTLE MORE ABOUT ME</p><h1>Curiosity, with a<br />practical side.</h1></div>
-  <div class="container page-body about-page-grid"><article class="prose"><p>{profile.bio}</p><p>My Vietnamese name is <strong>Đoàn Văn Tài</strong>. I’m based in Ho Chi Minh City, Vietnam, and expect to complete my Bachelor of Engineering in Computer Networks and Communications in 2027.</p><h2>What I’m working toward</h2><p>I want to develop as a Research Engineer: someone who can engage with a research question, turn it into a working implementation, and evaluate the result carefully. In the longer term, I’m interested in pursuing graduate research in networks and intelligent systems.</p><h2>What draws my attention</h2><p>Network Digital Twins, network optimization, and AI / ML for networking are the core of my current work. I’m particularly interested in what happens when the information available to a decision-maker is stale, incomplete, or imperfectly modeled.</p><p>That interest connects the systems side of my work—SDN testbeds, synchronization, and cloud infrastructure—with questions about uncertainty, routing, and decision quality.</p><h2>How I approach a project</h2><ul><li><strong>Start with a concrete question.</strong> Decide what the system or experiment should help us understand.</li><li><strong>Build something inspectable.</strong> Keep the implementation, assumptions, and evaluation connected.</li><li><strong>Keep the limits visible.</strong> A working pipeline is a useful starting point; it is not, by itself, evidence that a hypothesis is true.</li></ul><h2>Education</h2><p><strong>University of Information Technology, VNU-HCM</strong><br/>B.Eng. Computer Networks and Communications<br/>2023–2027 (expected) · GPA 3.52 / 4.00</p><h2>Technical toolkit</h2><div class="skills-grid">{profile.skills.map(skill=><div class="skill-group"><h3>{skill.title}</h3><p>{skill.items}</p></div>)}</div><h2>Let’s connect</h2><p>I’m open to Research Intern, Research Assistant, and R&D opportunities, especially where networking, digital twins, and machine learning meet.</p><p><a href={`mailto:${profile.email}`}>{profile.email}</a> · <a href={profile.github}>GitHub</a></p><a class="text-link" href="/cv/">View my CV <Icon size={15}/></a></article><figure class="about-page-photo"><img src="/images/tai-sunset.jpg" alt="Doan Van Tai at the seaside beneath a pink sunset" width="1368" height="1824"/><figcaption>A little perspective beyond the screen.</figcaption></figure></div>
+<BaseLayout title="About — Doan Van Tai" description="Doan Van Tai’s research journey from building an SDN network digital twin to studying routing decision quality under imperfect information.">
+  <div class="container page-header"><a class="breadcrumb" href="/">← Home</a><p class="eyebrow">ABOUT ME</p><h1>Computer networks,<br />models, and decisions.</h1></div>
+  <div class="container page-body about-page-grid">
+    <article class="prose">
+      <p>{profile.bio}</p>
+      <p>My Vietnamese name is <strong>Đoàn Văn Tài</strong>. I’m based in Ho Chi Minh City, Vietnam, and expect to complete my Bachelor of Engineering in Computer Networks and Communications in 2027.</p>
+
+      <h2>My Research Journey</h2>
+      <p>My work on <a href="/work/network-digital-twin/">DT4N</a> started with a systems problem: how can a network be observed and controlled through a digital representation? I built an SDN testbed connected to Eclipse Ditto, with telemetry synchronization, anomaly detection, what-if analysis, and a closed control loop.</p>
+      <p>This connects to a decision problem. A twin works with observations collected at particular times and a model of how the network will respond to an action. To understand the decisions made from that information, we need to examine both what the controller observes and what its model predicts.</p>
+      <p>My ongoing <a href="/work/state-model-regret/">State–Model–Regret research</a> studies how these two factors separately and jointly affect expected routing decision regret. I use controlled queueing models and simulation to investigate the question. The work remains exploratory, with its assumptions and unresolved questions documented alongside the results.</p>
+
+      <h2>What I’m working toward</h2>
+      <p>I want to develop as a Research Engineer who can connect theoretical reasoning, simulation, experimental evidence, and working systems. My longer-term interests include graduate research in computer networks, Network Digital Twins, and AI / ML for networking.</p>
+
+      <h2>How I work</h2>
+      <p>I keep model assumptions, configurations, and measurement scripts with the code. I compare results with a defined reference and document failed targets alongside successful runs.</p>
+      <h2>Education</h2>
+      <p><strong>University of Information Technology, VNU-HCM</strong><br/>B.Eng. Computer Networks and Communications<br/>2023–2027 (expected) · GPA 3.52 / 4.00</p>
+      <h2>Technical toolkit</h2>
+      <div class="skills-grid">{profile.skills.map(skill=><div class="skill-group"><h3>{skill.title}</h3><p>{skill.items}</p></div>)}</div>
+      <h2>Let’s connect</h2>
+      <p>I’m open to Research Intern, Research Assistant, and R&D opportunities, especially where networking, digital twins, and machine learning meet.</p>
+      <p><a href={`mailto:${profile.email}`}>{profile.email}</a> · <a href={profile.github}>GitHub</a></p>
+      <a class="text-link" href="/cv/">View my CV <Icon size={15}/></a>
+    </article>
+    <figure class="about-page-photo"><img src="/images/tai-sunset.jpg" alt="Doan Van Tai at the seaside beneath a pink sunset" width="1368" height="1824"/><figcaption>At the seaside.</figcaption></figure>
+  </div>
 </BaseLayout>

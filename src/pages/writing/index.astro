@@ -2,4 +2,30 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Icon from '../../components/Icon.astro';
 ---
-<BaseLayout title="Writing & Notes — Doan Van Tai" description="Working notes on network digital twins, uncertainty, routing, and the process of building and evaluating networked systems."><div class="container page-header"><a class="breadcrumb" href="/">← Home</a><p class="eyebrow">WRITING & NOTES</p><h1>Thinking, in the open.</h1><p class="page-description">Short project notes and research questions. A place to make the reasoning behind the work a little easier to follow.</p></div><section class="container page-body" aria-label="Writing collection"><div class="notes-list"><a class="note-row" href="/writing/digital-twins-as-control-loops/"><span class="note-category">SYSTEMS NOTE</span><div><h2 style="font-size:30px">A network twin is a loop, not just a mirror</h2><p>Observing a network is the beginning. Verifying what changed closes the loop.</p></div><span class="note-date">06 NOV 2026</span><Icon/></a><a class="note-row" href="/writing/state-information-and-model-fidelity/"><span class="note-category">RESEARCH QUESTION</span><div><h2 style="font-size:30px">Two kinds of uncertainty in a routing decision</h2><p>Separating what a controller observes from what its model predicts.</p></div><span class="note-date">06 NOV 2026</span><Icon/></a></div></section></BaseLayout>
+<BaseLayout title="Writing & Notes — Doan Van Tai" description="Working notes on network digital twins, uncertainty, routing, and the process of building and evaluating networked systems.">
+  <div class="container page-header">
+    <a class="breadcrumb" href="/">← Home</a>
+    <p class="eyebrow">WRITING & NOTES</p>
+    <h1>Writing and research notes.</h1>
+    <p class="page-description">Notes on my projects, their implementation, and the questions I’m working on.</p>
+  </div>
+  <section class="container page-body" aria-label="Writing collection">
+    <div class="notes-list">
+      <a class="note-row" href="/writing/from-digital-twins-to-routing-decisions/">
+        <span class="note-category">RESEARCH NOTE</span>
+        <div><h2 style="font-size:30px">From Network Digital Twins to Better Routing Decisions</h2><p>How building DT4N connects to my current questions about decision quality.</p></div>
+        <span class="note-date">06 NOV 2026</span><Icon/>
+      </a>
+      <a class="note-row" href="/writing/digital-twins-as-control-loops/">
+        <span class="note-category">SYSTEMS NOTE</span>
+        <div><h2 style="font-size:30px">How the DT4N control loop works</h2><p>Following a command from the dashboard to the testbed and back.</p></div>
+        <span class="note-date">06 NOV 2026</span><Icon/>
+      </a>
+      <a class="note-row" href="/writing/state-information-and-model-fidelity/">
+        <span class="note-category">RESEARCH QUESTION</span>
+        <div><h2 style="font-size:30px">Two kinds of uncertainty in a routing decision</h2><p>Separating what a controller observes from what its model predicts.</p></div>
+        <span class="note-date">06 NOV 2026</span><Icon/>
+      </a>
+    </div>
+  </section>
+</BaseLayout>

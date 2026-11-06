@@ -56,12 +56,14 @@ test('mobile navigation opens, closes, and follows a section', async ({page}) =>
 });
 
 test('all internal links, images, and PDF resolve; private fields are excluded', async ({ page, request }) => {
-  const pages=['/','/about/','/cv/','/work/','/work/network-digital-twin/','/work/state-model-regret/','/work/deep-rl-routing/','/work/cloud-gitops/','/writing/','/writing/digital-twins-as-control-loops/','/writing/state-information-and-model-fidelity/'];
+  const pages=['/','/about/','/cv/','/work/','/work/network-digital-twin/','/work/state-model-regret/','/work/deep-rl-routing/','/work/cloud-gitops/','/writing/','/writing/from-digital-twins-to-routing-decisions/','/writing/digital-twins-as-control-loops/','/writing/state-information-and-model-fidelity/'];
   const targets=new Set<string>();
   for(const route of pages) {
     const response=await page.goto(route); expect(response?.status(),route).toBe(200);
     const text=await page.locator('body').innerText();
-    expect(text).not.toMatch(/0395\s?082\s?873|395082873|InSecLab|Student ID|LinkedIn|ORCID|Google Scholar/);
+    expect(text).not.toMatch(/InSecLab|Student ID|LinkedIn|ORCID|Google Scholar/);
+    expect(text).not.toMatch(/\b0(?:[ .-]?\d){9}\b|\+84(?:[ .-]?\d){9}\b/);
+    await expect(page.locator('a[href^="tel:"]')).toHaveCount(0);
     for(const href of await page.locator('a[href^="/"], img[src^="/"]').evaluateAll(els=>els.map(el=>el.getAttribute('href')||el.getAttribute('src')||'')))targets.add(href);
     // Lazy images load after entering the viewport; allow actual network delivery.
     for (const image of await page.locator('img').all()) {
