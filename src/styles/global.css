@@ -320,26 +320,29 @@ a:focus-visible,button:focus-visible { outline:2px solid var(--accent); outline-
   .cv-section-heading { flex-direction:row; align-items:baseline; gap:12px; margin-bottom:0; }
 }
 
-/* First-screen identity and digital twin. */
-.hero.hero-ndt { grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); grid-template-areas:"identity visual" "details visual"; column-gap:68px; row-gap:24px; padding-block:52px 60px; }
+/* Identity, personal photo, and digital twin share the homepage hero. */
+.hero.hero-ndt { grid-template-columns:minmax(0,1fr) minmax(260px,.76fr) minmax(0,1fr); grid-template-areas:"identity portrait visual" "details portrait visual"; column-gap:28px; row-gap:22px; padding-block:52px 60px; }
 .hero-identity { grid-area:identity; align-self:end; }
 .hero-followup { grid-area:details; align-self:start; }
 .hero-followup .hero-statement { margin-top:0; }
 .hero-followup .hero-meta { margin-top:28px; }
-.hero-ndt h1 { font-size:clamp(64px,6.6vw,96px); }
+.hero-ndt h1 { font-size:clamp(54px,5.2vw,74px); letter-spacing:-2.5px; }
 .hero-ndt .hero-eyebrow { margin-bottom:24px; }
 .hero-ndt .hero-description { max-width:470px; }
-.hero-ndt .hero-actions { flex-wrap:wrap; gap:22px; }
-.hero-twin-panel { grid-area:visual; min-width:0; padding:24px 24px 12px; border:1px solid #76f2df2e; border-radius:20px; background:radial-gradient(ellipse at 65% 25%,#16393275,transparent 65%),linear-gradient(145deg,#0b1418,#101e22); box-shadow:0 18px 50px #173c2c12; }
-.hero-twin-panel h2 { font-size:33px; line-height:1.15; letter-spacing:-.7px; color:#edf8f2; }
+.hero-ndt .hero-actions { flex-wrap:wrap; gap:18px; }
+.hero-ndt .hero-statement { font-size:28px; }
+.hero-photo { grid-area:portrait; min-width:0; align-self:center; }
+.hero-photo-frame { display:block; aspect-ratio:5/6; border:1px solid var(--line); border-radius:110px 14px 14px 14px; background:var(--tint); }
+.hero-photo-frame img { width:100%; height:100%; object-fit:cover; object-position:58% 62%; }
+.hero-photo figcaption { display:flex; justify-content:space-between; align-items:center; gap:16px; padding-top:14px; font-size:11px; color:var(--muted); }
+.hero-photo figcaption a { display:inline-flex; align-items:center; gap:7px; color:var(--accent); }
+.hero-twin-panel { grid-area:visual; min-width:0; padding:20px 20px 12px; border:1px solid #76f2df2e; border-radius:20px; background:radial-gradient(ellipse at 65% 25%,#16393275,transparent 65%),linear-gradient(145deg,#0b1418,#101e22); box-shadow:0 18px 50px #173c2c12; }
+.hero-twin-panel h2 { font-size:28px; line-height:1.15; letter-spacing:-.7px; color:#edf8f2; }
 .hero-twin-panel h2 a { display:flex; flex-wrap:wrap; align-items:center; gap:0 8px; }
 .hero-twin-panel h2 em { color:#86e4ce; }
 .hero-twin-panel h2 svg { margin-left:auto; color:#a9e6d6; }
-.hero-twin-explanation { font-size:13px; line-height:1.75; color:#bdd4ca; margin:12px 0 18px; }
+.hero-twin-explanation { font-size:12px; line-height:1.75; color:#bdd4ca; margin:12px 0 18px; }
 .hero-twin-panel a:focus-visible,.hero-twin-panel button:focus-visible { outline-color:#b3efdf; }
-.about-profile { display:flex; align-items:center; gap:24px; }
-.about-avatar { display:block; width:110px; aspect-ratio:.8; flex-shrink:0; }
-.about-avatar img { width:100%; height:100%; object-fit:cover; object-position:center 55%; }
 .photo-viewport { overflow:hidden; border-radius:55px 8px 8px 8px; isolation:isolate; }
 .photo-viewport img { transition:transform .55s ease,filter .55s ease; }
 .featured-actions { display:flex; flex-wrap:wrap; align-items:center; gap:22px; margin-top:24px; }
@@ -353,35 +356,33 @@ a:focus-visible,button:focus-visible { outline:2px solid var(--accent); outline-
   .project-card:hover { transform:translateY(-4px); box-shadow:0 16px 32px #163b3014; }
   .photo-viewport:hover img,.photo-viewport:focus-visible img { transform:scale(1.035); filter:saturate(1.06); }
 }
-@media(min-width:721px) and (max-width:1150px) {
-  .hero.hero-ndt { column-gap:36px; row-gap:22px; padding-block:40px 48px; }
-  .hero-ndt h1 { font-size:clamp(52px,6.3vw,76px); letter-spacing:-2.5px; }
-  .hero-ndt .hero-statement { font-size:28px; }
-  .hero-twin-panel { padding:20px 20px 10px; }
-  .hero-twin-panel h2 { font-size:28px; }
+@media(min-width:721px) and (max-width:1099px) {
+  .hero.hero-ndt { grid-template-columns:minmax(0,1.15fr) minmax(260px,.85fr); grid-template-areas:"identity portrait" "details portrait" "visual visual"; column-gap:36px; row-gap:24px; padding-block:36px 44px; }
+  .hero-ndt h1 { font-size:clamp(54px,6.7vw,70px); }
+  .hero-photo { width:min(100%,340px); justify-self:end; }
+  .hero-twin-panel { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); grid-template-rows:auto auto; align-items:end; column-gap:30px; padding:22px; }
+  .hero-twin-panel h2 { grid-column:1; grid-row:1; align-self:end; font-size:32px; }
+  .hero-twin-explanation { grid-column:1; grid-row:2; align-self:start; font-size:13px; margin:14px 0 0; }
+  .hero-twin-panel .ndt-visual { grid-column:2; grid-row:1/3; }
 }
 @media(max-width:720px) {
-  .hero.hero-ndt { grid-template-columns:1fr; grid-template-areas:"identity" "visual" "details"; gap:18px; padding-block:28px 40px; }
+  .hero.hero-ndt { grid-template-columns:1fr; grid-template-areas:"identity" "portrait" "visual" "details"; gap:24px; padding-block:28px 40px; }
   .hero-ndt .hero-eyebrow { margin:0 0 14px; font-size:8px; }
   .hero-ndt h1 { margin:0 0 14px -2px; font-size:clamp(52px,12.5vw,78px); }
   .hero-ndt .hero-description { margin:0; font-size:13px; line-height:1.75; }
+  .hero-photo { width:min(100%,430px); justify-self:center; }
+  .hero-photo-frame { border-top-left-radius:90px; }
   .hero-twin-panel { padding:18px 18px 10px; border-radius:15px; }
   .hero-twin-panel h2 { font-size:27px; }
   .hero-twin-explanation { font-size:12px; margin:9px 0 12px; line-height:1.7; }
   .hero-ndt .hero-statement { margin-top:0; font-size:28px; }
   .hero-ndt .hero-actions { margin-top:18px; gap:20px; }
   .hero-ndt .hero-meta { margin-top:20px; font-size:9px; }
-  .about-profile { gap:20px; }
-  .about-avatar { width:90px; }
-  .about-profile h2 { font-size:36px; }
 }
 @media(prefers-reduced-motion:reduce) {
   .project-card:hover,.project-card:focus-within,.photo-viewport:hover img,.photo-viewport:focus-visible img,.button-primary:hover,.project-image:hover>img,.text-link:hover svg { transform:none; }
 }
-@media(min-width:721px) and (max-height:800px) {
+@media(min-width:1100px) and (max-height:800px) {
   .hero.hero-ndt { padding-block:28px 36px; }
-  .hero-twin-panel { width:min(100%,470px); justify-self:end; padding:20px 20px 10px; }
-  .hero-twin-panel h2 { font-size:30px; }
   .hero-twin-explanation { font-size:12px; line-height:1.7; margin:8px 0 12px; }
-  .hero-ndt .hero-statement { font-size:28px; }
 }

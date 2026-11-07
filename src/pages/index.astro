@@ -17,6 +17,10 @@ const projects = work.filter(item => item.kind === 'engineering');
       <h1 id="hero-title">Doan Van Tai<span class="name-dot">.</span></h1>
       <p class="hero-description">I’m a Computer Networks student at <strong>UIT, VNU-HCM</strong> and a <strong>Research Intern at UIT InSecLab</strong>. I build network systems and explore AI for Security.</p>
     </div>
+    <figure class="hero-photo">
+      <a class="hero-photo-frame photo-viewport" href="/about/" aria-label="More about Doan Van Tai"><img src="/images/tai-sunset.jpg" alt="Doan Van Tai looking out over the sea at sunset" width="1368" height="1824" loading="eager" fetchpriority="high" /></a>
+      <figcaption><span>Doan Van Tai</span><a href="/about/">About me <Icon size={14}/></a></figcaption>
+    </figure>
     <div class="hero-twin-panel" aria-labelledby="hero-twin-title">
       <h2 id="hero-twin-title"><a href="/work/network-digital-twin/">Network <em>Digital Twin</em><Icon size={17}/></a></h2>
       <p class="hero-twin-explanation">A digital model that follows a network’s changing state and helps explore what happens before making a change.</p>
@@ -34,7 +38,7 @@ const projects = work.filter(item => item.kind === 'engineering');
   <section class="section container about-section" id="about" aria-labelledby="about-title">
     <div class="section-rail"><span class="section-number">01 / ABOUT</span><span class="rail-line"></span></div>
     <div class="about-grid">
-      <div class="about-profile"><a class="about-avatar photo-viewport" href="/about/" aria-label="More about Doan Van Tai"><img src="/images/tai-sunset.jpg" alt="Doan Van Tai looking out over the sea at sunset" width="1368" height="1824" loading="lazy" /></a><h2 id="about-title">About <em>me</em></h2></div>
+      <h2 id="about-title">About <em>me</em></h2>
       <div class="about-copy"><p>I’m working toward a career as a Research Engineer, connecting experimental research with systems that can be built, tested, and inspected.</p><p>My projects have taken me from network testbeds to reinforcement learning and cloud infrastructure. I want to bring that engineering experience into further research and graduate study.</p><a class="text-link" href="/about/">Read more about me <Icon name="arrow-right" size={16}/></a></div>
     </div>
     <div class="interest-row"><span class="small-label">CURRENT INTERESTS</span><div>{profile.interests.map(interest=><span class="interest-tag">{interest}</span>)}</div></div>
