@@ -4,14 +4,13 @@ import Icon from '../components/Icon.astro';
 import NetworkFigure from '../components/NetworkFigure.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import ExperienceTimeline from '../components/ExperienceTimeline.astro';
-import NetworkTwinVisual from '../components/NetworkTwinVisual.astro';
 import FeaturedResearchCard from '../components/FeaturedResearchCard.astro';
 import { profile } from '../data/profile';
 import { work } from '../data/work';
 const projects = work.filter(item => item.kind === 'engineering');
 ---
 <BaseLayout>
-  <section class="hero hero-ndt container" aria-labelledby="hero-title" id="home">
+  <section class="hero hero-personal container" aria-labelledby="hero-title" id="home">
     <div class="hero-content hero-identity">
       <div class="eyebrow hero-eyebrow"><span class="status-dot"></span> NETWORKS · RESEARCH · ENGINEERING</div>
       <h1 id="hero-title">Doan Van Tai<span class="name-dot">.</span></h1>
@@ -21,11 +20,6 @@ const projects = work.filter(item => item.kind === 'engineering');
       <a class="hero-photo-frame photo-viewport" href="/about/" aria-label="More about Doan Van Tai"><img src="/images/tai-sunset.jpg" alt="Doan Van Tai looking out over the sea at sunset" width="1368" height="1824" loading="eager" fetchpriority="high" /></a>
       <figcaption><span>Doan Van Tai</span><a href="/about/">About me <Icon size={14}/></a></figcaption>
     </figure>
-    <div class="hero-twin-panel" aria-labelledby="hero-twin-title">
-      <h2 id="hero-twin-title"><a href="/work/network-digital-twin/">Network <em>Digital Twin</em><Icon size={17}/></a></h2>
-      <p class="hero-twin-explanation">A digital model that follows a network’s changing state and helps explore what happens before making a change.</p>
-      <NetworkTwinVisual id="hero-network-twin" />
-    </div>
     <div class="hero-followup">
       <p class="hero-statement">Research with curiosity.<br />Engineering with purpose.</p>
       <div class="hero-actions"><a class="button button-primary" href="/research/">Explore my research <Icon name="arrow-right" size={18}/></a><a class="text-link" href="/cv/">View CV <Icon size={15}/></a><a class="text-link" href={profile.github} target="_blank" rel="noopener noreferrer">GitHub <Icon size={15}/></a></div>

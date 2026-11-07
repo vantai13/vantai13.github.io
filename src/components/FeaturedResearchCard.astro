@@ -1,14 +1,16 @@
 ---
 import Icon from './Icon.astro';
+import NetworkTwinVisual from './NetworkTwinVisual.astro';
 import { researchAdvisor } from '../data/profile';
 import { work } from '../data/work';
 const project = work.find(item => item.slug === 'network-digital-twin')!;
 ---
 <article class="featured-research" aria-labelledby="featured-dt4n-title">
-  <a class="research-visual" href="/work/network-digital-twin/" aria-label="Read Network Digital Twin case study"><div class="visual-topline"><span>DT4N / PROJECT DASHBOARD</span><Icon size={16}/></div><img src={project.image} alt={project.imageAlt} loading="lazy" width="1398" height="885"/><div class="visual-bottomline">Original screenshot from the project</div></a>
+  <div class="research-twin-visual"><div class="research-twin-label">NETWORK DIGITAL TWIN</div><NetworkTwinVisual id="research-network-twin" /></div>
   <div class="research-details">
     <div class="work-meta"><span class="pill">Undergraduate research</span><span>{project.period}</span></div>
     <h3 id="featured-dt4n-title"><a href="/work/network-digital-twin/">{project.title}</a></h3>
+    <p class="ndt-explanation">A digital model that follows a network’s changing state and helps explore what happens before making a change.</p>
     <p>I built a synchronized SDN testbed and digital representation for monitoring, what-if analysis, anomaly detection, and closed-loop control.</p>
     <p>Project Lead · Mininet, Ryu, and Eclipse Ditto.</p>
     <p>Supervised by <a class="text-link" href={researchAdvisor.homepage} target="_blank" rel="noopener noreferrer">{researchAdvisor.name}<Icon size={13}/></a></p>

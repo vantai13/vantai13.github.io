@@ -1,35 +1,29 @@
 import { test, expect } from '@playwright/test';
 
-test('the hero gives the photo space and keeps NDT beside it or immediately after it', async ({ page }) => {
+test('the hero shows a large personal photo while NDT belongs to the Research section', async ({ page }) => {
   for (const [width, height] of [[320, 720], [360, 800], [390, 844], [768, 1024], [1280, 720], [1440, 900]]) {
     await page.setViewportSize({ width, height });
     await page.goto('/');
     await page.evaluate(() => document.fonts.ready);
     expect(await page.evaluate(() => scrollY)).toBe(0);
-    await expect(page.locator('.hero-ndt')).toContainText('Doan Van Tai');
+    await expect(page.locator('.hero-personal')).toContainText('Doan Van Tai');
     await expect(page.locator('.hero-description')).toContainText('Research Intern at UIT InSecLab');
-    await expect(page.locator('.hero-twin-explanation')).toContainText('network’s changing state');
+    await expect(page.locator('.ndt-explanation')).toContainText('network’s changing state');
     await expect(page.locator('[data-network-twin]')).toHaveCount(1);
+    await expect(page.locator('.hero [data-network-twin]')).toHaveCount(0);
+    await expect(page.locator('#research .featured-research [data-network-twin]')).toHaveCount(1);
+    await expect(page.locator('[data-network-twin]')).toHaveAttribute('data-motion', 'idle');
     const image = page.locator('.hero-photo img');
     await expect(image).toBeVisible();
     await expect(image).toHaveAttribute('loading', 'eager');
     const photo = (await image.boundingBox())!;
     const title = (await page.locator('#hero-title').boundingBox())!;
-    const physical = (await page.locator('.ndt-physical .ndt-node-center').first().boundingBox())!;
-    const digital = (await page.locator('.ndt-digital .ndt-node-center').first().boundingBox())!;
     expect(title.y + title.height, `${width}px owner title`).toBeLessThan(height);
     expect(photo.width, `${width}px photo width`).toBeGreaterThanOrEqual(width <= 720 ? Math.min(width - 42, 428) : 258);
     expect(photo.y + photo.height, `${width}px photo visible without scrolling`).toBeLessThan(height);
-    if (width <= 720) {
-      const portrait = (await page.locator('.hero-photo').boundingBox())!;
-      const panel = (await page.locator('.hero-twin-panel').boundingBox())!;
-      expect(panel.y - portrait.y - portrait.height).toBeGreaterThanOrEqual(20);
-      expect(panel.y - portrait.y - portrait.height).toBeLessThanOrEqual(28);
-      expect(await page.locator('.hero-photo').evaluate(element => element.nextElementSibling?.classList.contains('hero-twin-panel'))).toBe(true);
-    } else {
-      expect(digital.y + digital.height, `${width}px digital layer`).toBeLessThan(height);
-      expect(physical.y + physical.height, `${width}px physical layer`).toBeLessThan(height);
-    }
+    const hero = (await page.locator('.hero-personal').boundingBox())!;
+    const research = (await page.locator('#research').boundingBox())!;
+    expect(research.y).toBeGreaterThan(hero.y + hero.height);
   }
 });
 
