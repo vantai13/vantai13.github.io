@@ -4,26 +4,29 @@ import Icon from '../components/Icon.astro';
 import NetworkFigure from '../components/NetworkFigure.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import ExperienceTimeline from '../components/ExperienceTimeline.astro';
-import DT4NQuantumCard from '../components/DT4NQuantumCard.astro';
+import NetworkTwinVisual from '../components/NetworkTwinVisual.astro';
+import FeaturedResearchCard from '../components/FeaturedResearchCard.astro';
 import { profile } from '../data/profile';
 import { work } from '../data/work';
 const projects = work.filter(item => item.kind === 'engineering');
 ---
 <BaseLayout>
-  <section class="hero container" aria-labelledby="hero-title" id="home">
-    <div class="hero-content">
-      <div class="eyebrow hero-eyebrow"><span class="status-dot"></span> A STUDENT OF NETWORKS & SYSTEMS</div>
+  <section class="hero hero-ndt container" aria-labelledby="hero-title" id="home">
+    <div class="hero-content hero-identity">
+      <div class="eyebrow hero-eyebrow"><span class="status-dot"></span> NETWORKS · RESEARCH · ENGINEERING</div>
       <h1 id="hero-title">Doan Van Tai<span class="name-dot">.</span></h1>
+      <p class="hero-description">I’m a Computer Networks student at <strong>UIT, VNU-HCM</strong> and a <strong>Research Intern at UIT InSecLab</strong>. I build network systems and explore AI for Security.</p>
+    </div>
+    <div class="hero-twin-panel" aria-labelledby="hero-twin-title">
+      <h2 id="hero-twin-title"><a href="/work/network-digital-twin/">Network <em>Digital Twin</em><Icon size={17}/></a></h2>
+      <p class="hero-twin-explanation">A digital model that follows a network’s changing state and helps explore what happens before making a change.</p>
+      <NetworkTwinVisual id="hero-network-twin" />
+    </div>
+    <div class="hero-followup">
       <p class="hero-statement">Research with curiosity.<br />Engineering with purpose.</p>
-      <p class="hero-description">I’m a Computer Networks student and undergraduate researcher at <strong>UIT, VNU-HCM</strong>, interested in how networks can be monitored, modeled, and managed.</p>
-      <p class="hero-description">I combine <strong>SDN testbeds and simulation</strong> to study how incomplete network information and imperfect predictive models affect routing decisions.</p>
-      <div class="hero-actions"><a class="button button-primary" href="/research/">Explore my research <Icon name="arrow-right" size={18}/></a><a class="text-link" href="/cv/">View CV <Icon size={15}/></a></div>
+      <div class="hero-actions"><a class="button button-primary" href="/research/">Explore my research <Icon name="arrow-right" size={18}/></a><a class="text-link" href="/cv/">View CV <Icon size={15}/></a><a class="text-link" href={profile.github} target="_blank" rel="noopener noreferrer">GitHub <Icon size={15}/></a></div>
       <div class="hero-meta"><span><Icon name="pin" size={15}/> Ho Chi Minh City, Vietnam</span><span>UIT · VNU-HCM</span></div>
     </div>
-    <figure class="hero-portrait">
-      <div class="portrait-frame"><img src="/images/tai-sunset.jpg" alt="Doan Van Tai looking out over the sea at sunset" width="1368" height="1824" fetchpriority="high" decoding="async" /><span class="portrait-corner" aria-hidden="true">↗</span></div>
-      <figcaption><span class="tiny-cross" aria-hidden="true">+</span> At the seaside.<span class="portrait-label">PERSONAL PHOTO</span></figcaption>
-    </figure>
   </section>
 
   <div class="availability-band"><div class="container availability-inner"><span><span class="status-dot"></span>{profile.availability}</span><a href="#contact">Contact me <Icon name="arrow-up-right" size={15}/></a></div></div>
@@ -31,7 +34,7 @@ const projects = work.filter(item => item.kind === 'engineering');
   <section class="section container about-section" id="about" aria-labelledby="about-title">
     <div class="section-rail"><span class="section-number">01 / ABOUT</span><span class="rail-line"></span></div>
     <div class="about-grid">
-      <h2 id="about-title">About <em>me</em></h2>
+      <div class="about-profile"><a class="about-avatar photo-viewport" href="/about/" aria-label="More about Doan Van Tai"><img src="/images/tai-sunset.jpg" alt="Doan Van Tai looking out over the sea at sunset" width="1368" height="1824" loading="lazy" /></a><h2 id="about-title">About <em>me</em></h2></div>
       <div class="about-copy"><p>I’m working toward a career as a Research Engineer, connecting experimental research with systems that can be built, tested, and inspected.</p><p>My projects have taken me from network testbeds to reinforcement learning and cloud infrastructure. I want to bring that engineering experience into further research and graduate study.</p><a class="text-link" href="/about/">Read more about me <Icon name="arrow-right" size={16}/></a></div>
     </div>
     <div class="interest-row"><span class="small-label">CURRENT INTERESTS</span><div>{profile.interests.map(interest=><span class="interest-tag">{interest}</span>)}</div></div>
@@ -40,7 +43,7 @@ const projects = work.filter(item => item.kind === 'engineering');
   <section class="section research-section" id="research" aria-labelledby="research-title"><div class="container">
     <div class="section-rail"><span class="section-number">02 / RESEARCH</span><span class="rail-line"></span></div>
     <div class="section-heading"><div><h2 id="research-title"><em>Research</em></h2><p>Building network models and studying the decisions made with them.</p></div><a class="text-link" href="/research/">Research overview <Icon name="arrow-right" size={16}/></a></div>
-    <DT4NQuantumCard />
+    <FeaturedResearchCard />
     <article class="ongoing-research"><div class="ongoing-number" aria-hidden="true">↗</div><div class="ongoing-copy"><div class="work-meta"><span class="pill pill-outline"><span class="status-dot"></span>Research in progress</span><span>2026 to Present</span></div><h3><a href="/work/state-model-regret/">Better information. Better decisions?</a></h3><p>When does improving state information help a routing decision, and how does its effect depend on the response model? I study these questions through controlled queueing models and simulation.</p><a class="text-link" href="/work/state-model-regret/">Inside State-Model-Regret <Icon name="arrow-right" size={16}/></a></div><div class="ongoing-figure"><NetworkFigure variant="research" /></div></article>
   </div></section>
 

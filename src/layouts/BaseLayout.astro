@@ -109,6 +109,22 @@ const activeSection = Astro.props.activeSection ?? navigation.find(item => item.
           }));
           window.addEventListener('popstate', () => applyFilter(new URLSearchParams(location.search).get('filter')));
         }
+        const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+        if ('IntersectionObserver' in window && 'animate' in Element.prototype) {
+          const activeReveals = new Set<Animation>();
+          const reveals = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+              if (!entry.isIntersecting) return;
+              reveals.unobserve(entry.target);
+              if (reducedMotion.matches) return;
+              const animation = entry.target.animate([{ transform:'translateY(8px)' }, { transform:'translateY(0)' }], { duration:480, easing:'cubic-bezier(.2,.65,.3,1)' });
+              activeReveals.add(animation);
+              animation.finished.catch(() => {}).finally(() => activeReveals.delete(animation));
+            });
+          }, { threshold:.12 });
+          document.querySelectorAll('.section-heading, .timeline-item').forEach(element => reveals.observe(element));
+          reducedMotion.addEventListener('change', () => { if (reducedMotion.matches) activeReveals.forEach(animation => animation.cancel()); });
+        }
       }
       initialize();
     </script>

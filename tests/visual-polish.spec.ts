@@ -33,7 +33,7 @@ test('NDT signal animation moves, pauses, resumes, and keeps the pause preferenc
   await expect(graphic).toHaveAttribute('data-motion', 'running');
   const resumed = await clock();
   await expect.poll(clock).toBeGreaterThan(resumed + .1);
-  await page.evaluate(() => scrollTo(0, 0));
+  await page.evaluate(() => scrollTo(0, document.documentElement.scrollHeight));
   await expect(graphic).toHaveAttribute('data-motion', 'idle');
 });
 
@@ -91,7 +91,7 @@ test('visible copy and page titles contain no long dashes', async ({ page }) => 
 
 test('methodology link opens the case study at a visible heading', async ({ page }) => {
   await page.goto('/');
-  await page.locator('.dt4n-quantum-card').getByRole('link', { name: 'See methodology' }).click();
+  await page.locator('.featured-research').getByRole('link', { name: 'See methodology' }).click();
   await expect(page).toHaveURL(/\/work\/network-digital-twin\/#methodology$/);
   await expect.poll(() => page.locator('#methodology').evaluate(element => element.getBoundingClientRect().top >= document.querySelector('.site-header')!.getBoundingClientRect().bottom - 1)).toBe(true);
 });
