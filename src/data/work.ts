@@ -16,7 +16,7 @@ export const work: Work[] = [
   {
     kind: 'research', slug: 'network-digital-twin', index: '01',
     title: 'Network Digital Twin for Intelligent Network Management', shortTitle: 'Network Digital Twin',
-    category: 'Network Digital Twins', status: 'Completed research project', period: '2025 — 2026',
+    category: 'Network Digital Twins', status: 'Completed research project', period: '2025 to 2026',
     summary: 'Connecting an SDN testbed to a living network model, with bidirectional synchronization, what-if analysis, and a closed control loop.',
     tags: ['Mininet', 'Eclipse Ditto', 'Python', 'Ryu'],
     image: '/images/dt4n-dashboard.png', imageAlt: 'DT4N project dashboard showing the actual network topology, link state and throughput controls',
@@ -25,7 +25,7 @@ export const work: Work[] = [
     role: 'Project Lead for a UIT-supported undergraduate research project. I built the SDN testbed and synchronization layer, implemented the anomaly detector, and developed the closed-loop controller. The work also includes experiment scripts and archived evaluation artifacts.',
     advisor: researchAdvisor,
     reflection: {
-      text: 'DT4N connects observations, a network model, and control actions in one system. Evaluating that system raises a further question: how do the observations and response model affect the quality of the decision itself? This connects the engineering project to my ongoing State–Model–Regret research.',
+      text: 'DT4N connects observations, a network model, and control actions in one system. Evaluating that system raises a further question: how do the observations and response model affect the quality of the decision itself? This connects the engineering project to my ongoing State-Model-Regret research.',
       linkLabel: 'Explore the next research question',
       href: '/work/state-model-regret/',
     },
@@ -55,8 +55,8 @@ export const work: Work[] = [
   },
   {
     kind: 'research', slug: 'state-model-regret', index: '02',
-    title: 'When does better network information lead to better decisions?', shortTitle: 'State–Model–Regret',
-    category: 'Decision-Making under Uncertainty', status: 'Research in progress', period: '2026 — Present',
+    title: 'When does better network information lead to better decisions?', shortTitle: 'State-Model-Regret',
+    category: 'Decision-Making under Uncertainty', status: 'Research in progress', period: '2026 to Present',
     summary: 'Investigating how current-state information and action-response model fidelity interact in their effect on expected routing decision regret.',
     tags: ['Routing', 'Queueing Systems', 'Uncertainty', 'Simulation'],
     problem: 'A routing change moves load between paths. A controller must choose using information about the current state and a model of the response to that change. Prediction accuracy alone does not tell us how either factor affects the cost of the selected action.',
@@ -87,7 +87,7 @@ export const work: Work[] = [
   {
     kind: 'engineering', slug: 'deep-rl-routing', index: '03',
     title: 'Learning adaptive routes in software-defined networks', shortTitle: 'Deep RL for SDN Routing',
-    category: 'Learning for Networking', status: 'Academic project', period: 'February — May 2026',
+    category: 'Learning for Networking', status: 'Academic project', period: 'February to May 2026',
     summary: 'A Dueling Double DQN routing agent, a custom Gymnasium environment, and a Mininet evaluation pipeline with an OSPF baseline.',
     tags: ['PyTorch', 'Gymnasium', 'Mininet', 'Vue'],
     problem: 'Congestion and link failures can make a fixed route inefficient. A learned policy needs a useful representation of network state and an evaluation that reaches beyond its training simulator.',
@@ -114,7 +114,7 @@ export const work: Work[] = [
   {
     kind: 'engineering', slug: 'cloud-gitops', index: '04',
     title: 'From infrastructure as code to observable delivery on AWS', shortTitle: 'Cloud & GitOps on AWS',
-    category: 'Cloud Infrastructure', status: 'Team course project', period: 'February — May 2026',
+    category: 'Cloud Infrastructure', status: 'Team course project', period: 'February to May 2026',
     summary: 'A three-tier application delivered to EKS through Terraform, GitHub Actions, and ArgoCD, with observable Blue/Green rollouts.',
     tags: ['AWS EKS', 'Terraform', 'ArgoCD', 'Prometheus'],
     image: '/images/eks-architecture.png', imageAlt: 'AWS architecture diagram from the NT548 team project, with public and private subnets across two availability zones',

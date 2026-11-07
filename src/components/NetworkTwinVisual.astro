@@ -1,0 +1,127 @@
+---
+interface Props { id?: string; }
+const { id = 'ndt-feature' } = Astro.props;
+const nodes = [[280, 166], [132, 166], [206, 122], [354, 122], [428, 166], [354, 210], [206, 210]];
+const edges = [[1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 1], [0, 1], [0, 3], [0, 5], [2, 6], [3, 5]];
+const paths = [
+  { d: 'M132 166 L280 166 L354 122 L428 166 L354 210 L280 166', duration: '7s' },
+  { d: 'M132 341 L280 341 L354 385 L428 341 L354 297 L280 341', duration: '8s' },
+  { d: 'M132 341 C52 312 52 196 132 166', duration: '5s' },
+  { d: 'M428 166 C508 194 508 314 428 341', duration: '6s' },
+];
+---
+<figure class="ndt-visual" data-network-twin data-motion="idle">
+  <div class="ndt-stage" data-ndt-stage>
+    <svg class="ndt-svg" viewBox="0 0 560 500" width="560" height="500" role="img" aria-labelledby={`${id}-title ${id}-description`}>
+      <title id={`${id}-title`}>Network Digital Twin illustration</title>
+      <desc id={`${id}-description`}>Two corresponding network layers exchange telemetry and control signals. The upper layer is the digital twin and the lower layer is the physical network. This is a conceptual illustration.</desc>
+      <defs>
+        <radialGradient id={`${id}-glow`}><stop offset="0" stop-color="#76f2df" stop-opacity=".15" /><stop offset="1" stop-color="#76f2df" stop-opacity="0" /></radialGradient>
+        <filter id={`${id}-soft-glow`} x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="3" /></filter>
+      </defs>
+      <ellipse cx="280" cy="250" rx="250" ry="225" fill={`url(#${id}-glow)`} />
+      <g class="ndt-scene">
+        <g class="ndt-orbits" fill="none">
+          <ellipse cx="280" cy="253" rx="216" ry="157" transform="rotate(-18 280 253)" />
+          <ellipse cx="280" cy="253" rx="142" ry="208" transform="rotate(31 280 253)" />
+          <ellipse cx="280" cy="253" rx="233" ry="99" transform="rotate(54 280 253)" stroke-dasharray="2 9" />
+        </g>
+        <g class="ndt-correspondence" fill="none">{[1, 2, 4, 5, 6].map(index => <path d={`M${nodes[index][0]} ${nodes[index][1]} V${nodes[index][1] + 175}`} />)}</g>
+        <g class="ndt-sync" fill="none"><path d={paths[2].d} /><path d={paths[3].d} /></g>
+        {[0, 175].map((offset, layer) => <g class:list={['ndt-layer', layer === 0 ? 'ndt-digital' : 'ndt-physical']}>
+          <ellipse class="ndt-plane" cx="280" cy={166 + offset} rx="185" ry="76" />
+          <g class="ndt-links">{edges.map(([from, to]) => <path d={`M${nodes[from][0]} ${nodes[from][1] + offset} L${nodes[to][0]} ${nodes[to][1] + offset}`} />)}</g>
+          <circle class="ndt-core-halo" cx="280" cy={166 + offset} r="33" />
+          {nodes.map(([x, y], index) => <g class="ndt-node">
+            <circle class="ndt-node-glow" cx={x} cy={y + offset} r={index === 0 ? 10 : 6} filter={`url(#${id}-soft-glow)`} />
+            <circle class="ndt-node-ring" cx={x} cy={y + offset} r={index === 0 ? 11 : 6} />
+            <circle class="ndt-node-center" cx={x} cy={y + offset} r={index === 0 ? 4 : 2.5} />
+          </g>)}
+        </g>)}
+        <g class="ndt-packets">{paths.map(path => <g class="ndt-packet">
+          <circle r="8" fill="#76f2df" opacity=".12" /><circle r="3" fill="#e6fff8" />
+          <animateMotion path={path.d} dur={path.duration} begin="indefinite" repeatCount="indefinite" />
+        </g>)}</g>
+        <g class="ndt-dust"><circle cx="108" cy="246" r="1.5" /><circle cx="453" cy="109" r="2" /><circle cx="391" cy="424" r="1.5" /></g>
+      </g>
+      <g class="ndt-labels"><text x="280" y="65" text-anchor="middle">DIGITAL TWIN</text><text x="280" y="446" text-anchor="middle">PHYSICAL NETWORK</text><text x="47" y="256" text-anchor="middle" transform="rotate(-90 47 256)">TELEMETRY</text><text x="513" y="256" text-anchor="middle" transform="rotate(90 513 256)">CONTROL</text></g>
+    </svg>
+  </div>
+  <figcaption><span>Conceptual illustration</span><button class="ndt-motion-toggle" type="button" aria-label="Pause animation" aria-pressed="false" data-ndt-toggle hidden><svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path class="ndt-pause-icon" d="M5 3v10M11 3v10" /><path class="ndt-play-icon" d="m5 3 8 5-8 5z" /></svg><span data-ndt-toggle-label>Pause</span></button></figcaption>
+</figure>
+
+<style>
+  .ndt-visual { margin:0; min-width:0; width:100%; color:#b8d5cf; --ndt-play:paused; }
+  .ndt-stage { position:relative; border:1px solid #76f2df16; border-radius:18px; background:radial-gradient(ellipse at 52% 37%,#58c4b80c,transparent 65%),linear-gradient(160deg,#ffffff03,transparent); }
+  .ndt-svg { display:block; width:100%; height:auto; overflow:visible; }
+  .ndt-scene { transform-origin:50% 50%; transform:perspective(850px) rotateX(var(--tilt-y,0deg)) rotateY(var(--tilt-x,0deg)); transition:transform .4s ease; }
+  .ndt-orbits { stroke:#76f2df; stroke-width:.75; opacity:.16; }
+  .ndt-correspondence { stroke:#92cfc4; stroke-width:.7; stroke-dasharray:2 7; opacity:.22; }
+  .ndt-sync { stroke:#76f2df; stroke-width:1; stroke-dasharray:3 6; opacity:.55; }
+  .ndt-plane { fill:#76f2df03; stroke:#76f2df; stroke-width:.8; stroke-dasharray:2 5; opacity:.35; }
+  .ndt-links { fill:none; stroke:#76f2df; stroke-width:1.1; opacity:.65; }
+  .ndt-core-halo { fill:#76f2df08; stroke:#76f2df; stroke-width:.75; opacity:.4; animation:ndt-breathe 7s ease-in-out infinite; animation-play-state:var(--ndt-play); }
+  .ndt-node-glow { fill:#76f2df; opacity:.5; }
+  .ndt-node-ring { fill:#102328; stroke:#90f5e4; stroke-width:1.1; }
+  .ndt-node-center { fill:#c9fff3; }
+  .ndt-physical .ndt-links { stroke:#a5c9c3; opacity:.4; }
+  .ndt-physical .ndt-node-ring { fill:#101d22; stroke:#9bc9bf; }
+  .ndt-physical .ndt-node-glow { opacity:.25; }
+  .ndt-physical .ndt-core-halo { opacity:.2; }
+  .ndt-labels { fill:#b8d5cf; font-family:var(--sans); font-size:10px; letter-spacing:2.5px; }
+  .ndt-dust { fill:#a6ebdc; opacity:.5; animation:ndt-float 9s ease-in-out infinite; animation-play-state:var(--ndt-play); }
+  .ndt-visual[data-motion=running] { --ndt-play:running; }
+  .ndt-visual:not([data-started]) .ndt-packets { visibility:hidden; }
+  figcaption { display:flex; justify-content:space-between; align-items:center; gap:16px; min-height:44px; padding-top:10px; color:#a9c8c1; font-size:10px; }
+  .ndt-motion-toggle { display:inline-flex; align-items:center; justify-content:center; gap:7px; min-height:32px; padding:5px 10px; border:1px solid #76f2df24; border-radius:5px; color:#d9f5ed; background:#ffffff03; font-size:10px; }
+  .ndt-motion-toggle:hover { background:#76f2df10; }
+  .ndt-motion-toggle svg { fill:none; stroke:currentColor; stroke-width:1.5; }
+  .ndt-play-icon { display:none; }
+  [data-motion=paused] .ndt-pause-icon,[data-motion=reduced] .ndt-pause-icon { display:none; }
+  [data-motion=paused] .ndt-play-icon { display:block; }
+  .ndt-motion-toggle:disabled { opacity:.7; cursor:default; }
+  @keyframes ndt-breathe { 0%,100% { stroke-opacity:.3; fill-opacity:.3; } 50% { stroke-opacity:.8; fill-opacity:1; } }
+  @keyframes ndt-float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-7px); } }
+  @media(max-width:720px) { .ndt-motion-toggle { min-height:44px; padding-inline:12px; } }
+  @media(prefers-reduced-motion:reduce) { .ndt-packets { visibility:hidden; } .ndt-scene { transform:none; transition:none; } }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-network-twin]').forEach(root => {
+    const svg = root.querySelector<SVGSVGElement>('svg.ndt-svg');
+    const stage = root.querySelector<HTMLElement>('[data-ndt-stage]');
+    const toggle = root.querySelector<HTMLButtonElement>('[data-ndt-toggle]');
+    const label = root.querySelector<HTMLElement>('[data-ndt-toggle-label]');
+    if (!svg || !toggle || !label || !stage) return;
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+    let paused = false, inView = false, started = false;
+    try { paused = localStorage.getItem('ndt-motion') === 'paused'; } catch {}
+    svg.pauseAnimations();
+    const update = () => {
+      const running = !paused && !reduced.matches && inView && !document.hidden;
+      if (running && !started) {
+        svg.querySelectorAll<SVGAnimationElement>('animateMotion').forEach(motion => motion.beginElement());
+        started = true; root.dataset.started = 'true';
+      }
+      if (running) svg.unpauseAnimations(); else svg.pauseAnimations();
+      root.dataset.motion = reduced.matches ? 'reduced' : paused ? 'paused' : running ? 'running' : 'idle';
+      toggle.disabled = reduced.matches;
+      toggle.setAttribute('aria-pressed', String(paused || reduced.matches));
+      toggle.setAttribute('aria-label', reduced.matches ? 'Animation disabled for reduced motion' : paused ? 'Resume animation' : 'Pause animation');
+      label.textContent = reduced.matches ? 'Motion off' : paused ? 'Resume' : 'Pause';
+    };
+    toggle.hidden = false;
+    toggle.addEventListener('click', () => { paused = !paused; try { localStorage.setItem('ndt-motion', paused ? 'paused' : 'running'); } catch {} update(); });
+    reduced.addEventListener('change', () => { stage.style.removeProperty('--tilt-x'); stage.style.removeProperty('--tilt-y'); update(); });
+    document.addEventListener('visibilitychange', update);
+    new IntersectionObserver(entries => { inView = entries[0].isIntersecting; update(); }, { threshold:.1 }).observe(root);
+    stage.addEventListener('pointermove', event => {
+      if (event.pointerType !== 'mouse' || reduced.matches || paused) return;
+      const box = stage.getBoundingClientRect();
+      stage.style.setProperty('--tilt-x', `${((event.clientX - box.left) / box.width - .5) * 5}deg`);
+      stage.style.setProperty('--tilt-y', `${-((event.clientY - box.top) / box.height - .5) * 5}deg`);
+    });
+    stage.addEventListener('pointerleave', () => { stage.style.removeProperty('--tilt-x'); stage.style.removeProperty('--tilt-y'); });
+    update();
+  });
+</script>

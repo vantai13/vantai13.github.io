@@ -11,7 +11,7 @@ test('homepage introduces the person and DT4N without experiment metrics', async
   await expect(project).toContainText('Network Digital Twin for Intelligent Network Management');
   await expect(project).toContainText('Project Lead');
   await expect(project).toContainText('Dr. Huynh Van Dang');
-  await expect(project.getByRole('link', { name: 'Explore DT4N', exact: true })).toHaveAttribute('href', '/work/network-digital-twin/');
+  await expect(project.getByRole('link', { name: 'View project', exact: true })).toHaveAttribute('href', '/work/network-digital-twin/');
 });
 
 test('technical results and their evaluation limits remain in the case study', async ({ page }) => {
@@ -38,7 +38,7 @@ test('confirmed internship is consistent across Home, About, Experience, and CV'
   }
   await page.goto('/experience/#inseclab');
   const lab = page.locator('#inseclab');
-  await expect(lab).toContainText('Nov 2026 — Present');
+  await expect(lab).toContainText('Nov 2026 to Present');
   await expect(lab).toContainText('AI for Security');
   await expect(lab).toContainText('exploratory');
   await expect(lab).toContainText('retrieval');

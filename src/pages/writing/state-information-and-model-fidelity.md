@@ -6,7 +6,7 @@ category: Research question
 date: '2026-11-06'
 ---
 
-A routing decision uses observations of the network and a model of the response to an action. In State–Model–Regret, I treat these as separate factors: **current-state information** and **action-response model fidelity**.
+A routing decision uses observations of the network and a model of the response to an action. In State-Model-Regret, I treat these as separate factors: **current-state information** and **action-response model fidelity**.
 
 ## Current-state information
 
@@ -22,7 +22,7 @@ The current model comparison holds parameters and posterior information fixed. I
 
 ## The question I’m exploring
 
-The State–Model–Regret project asks how improvements in these two factors differ and interact in their effect on expected decision regret for load-changing routing actions.
+The State-Model-Regret project asks how improvements in these two factors differ and interact in their effect on expected decision regret for load-changing routing actions.
 
 The decision setting, reference policy, and probability law are specified together so the comparisons use the same objective. The [research journey note](/writing/from-digital-twins-to-routing-decisions/) explains how this connects to DT4N and defines expected decision regret.
 
@@ -32,7 +32,7 @@ This is ongoing exploratory research. The repository records inconclusive result
 
 ## Research notebook
 
-- [State–Model–Regret repository and current status](https://github.com/vantai13/state-model-regret)
+- [State-Model-Regret repository and current status](https://github.com/vantai13/state-model-regret)
 - [Design, theory, and experiment notes](https://github.com/vantai13/state-model-regret/tree/main/notes)
 
 This note introduces the research question. It does not claim a new result, publication, or novelty finding.

@@ -56,7 +56,7 @@ test('research, engineering, and experience have distinct content with confirmed
   await expect(page.locator('[data-project-category="research"]')).toHaveCount(2);
   await expect(page.locator('[data-project-category="engineering"]')).toHaveCount(0);
   await expect(page.getByRole('heading', { name: 'Current research question', exact: true })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'From DT4N to State–Model–Regret', exact: true })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'From DT4N to State-Model-Regret', exact: true })).toBeVisible();
   await expect(page.locator('.research-context')).toContainText('Dr. Huynh Van Dang');
   await page.goto('/projects/');
   await expect(page.locator('[data-project-category="engineering"]')).toHaveCount(2);

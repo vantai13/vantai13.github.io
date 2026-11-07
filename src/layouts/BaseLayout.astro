@@ -7,7 +7,7 @@ import Icon from '../components/Icon.astro';
 import { profile } from '../data/profile';
 import { navigation, type NavigationSection } from '../data/navigation';
 interface Props { title?: string; description?: string; article?: boolean; activeSection?: NavigationSection; }
-const { title = 'Doan Van Tai — Networks, research & engineering', description = 'Doan Van Tai is a Computer Networks student and undergraduate researcher at UIT–VNU-HCM, building network systems and exploring AI for Security at UIT InSecLab.', article = false } = Astro.props;
+const { title = 'Doan Van Tai | Networks, research & engineering', description = 'Doan Van Tai is a Computer Networks student and undergraduate researcher at UIT, VNU-HCM, building network systems and exploring AI for Security at UIT InSecLab.', article = false } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const activeSection = Astro.props.activeSection ?? navigation.find(item => item.href === '/' ? Astro.url.pathname === '/' : Astro.url.pathname.startsWith(item.href))?.section;
 ---
@@ -30,7 +30,7 @@ const activeSection = Astro.props.activeSection ?? navigation.find(item => item.
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header">
       <div class="header-inner">
-        <a class="brand" href="/" aria-label="Doan Van Tai — Home"><span class="brand-mark">t<span>·</span></span><span>Doan Van Tai<span class="brand-subtitle">Research & engineering</span></span></a>
+        <a class="brand" href="/" aria-label="Doan Van Tai, Home"><span class="brand-mark">t<span>·</span></span><span>Doan Van Tai<span class="brand-subtitle">Research & engineering</span></span></a>
         <nav id="main-navigation" class="main-nav" aria-label="Main navigation">
           {navigation.map(item => <a href={item.href} data-nav-section={item.section} class:list={{ 'nav-cv': item.section === 'cv' }} aria-current={activeSection === item.section ? 'page' : undefined}>{item.label}{item.section === 'cv' && <Icon size={13} />}</a>)}
           <a class="mobile-contact-link" href="/#contact">Contact <Icon size={14} /></a>

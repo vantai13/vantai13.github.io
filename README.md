@@ -55,6 +55,10 @@ Research and engineering projects share data in `src/data/work.ts`; each entry h
 
 `/work/` remains a combined archive. Its filter is stored in the URL and follows browser Back/Forward. The main menu marks the current page or case-study section. Mobile navigation supports keyboard focus, Escape, closing on outside interaction, and short landscape screens.
 
+The featured DT4N card uses `DT4NQuantumCard.astro` and the reusable `NetworkTwinVisual.astro` illustration. Two network layers and moving signals depict synchronization and control. This is a conceptual illustration, with no connection to live telemetry. Motion can be paused, respects reduced motion, and stops outside the viewport or in a hidden tab. Without JavaScript it stays static. The personal photo remains on Home and About.
+
+CV screen spacing is defined between sections and entries rather than through heading `:first-child` margins. Print spacing is defined separately so the generated CV remains one A4 page. Displayed dates and role labels use words, commas, or parentheses in place of long dashes; the project name is displayed as `State-Model-Regret` without changing its URL or scientific content.
+
 ## Regenerate the public PDF
 
 Install a Playwright Chromium browser when one is not already available:

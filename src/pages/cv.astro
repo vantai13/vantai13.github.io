@@ -3,15 +3,48 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
 import { profile, researchAdvisor, labExperience } from '../data/profile';
 ---
-<BaseLayout title="CV — Doan Van Tai" description="Research and engineering CV for Doan Van Tai: education, network digital twin research, SDN routing, cloud projects, and technical skills.">
-  <div class="container page-header"><a class="breadcrumb" href="/">← Home</a><p class="eyebrow">CURRICULUM VITAE</p><h1>Curriculum Vitae</h1><p class="page-description">A concise view of my education, research, and technical work.</p><div class="cv-actions"><a class="button button-primary" href="/files/DoanVanTai_CV.pdf" download>Download PDF <Icon name="download" size={17}/></a><button class="button button-secondary" type="button" id="print-cv">Print this CV</button></div></div>
-  <div class="container"><article class="cv-document"><header class="cv-print-header"><h1>Doan Van Tai</h1><p>UIT–VNUHCM · Ho Chi Minh City, Vietnam<br/>{profile.email} · github.com/vantai13 · {Astro.site?.hostname || 'vantai13.github.io'}</p></header>
-    <section><h2>Profile</h2><p>Final-year Computer Networks and Communications student at UIT–VNUHCM, working toward a career as a Research Engineer. Experience building network testbeds, adaptive routing systems, and cloud infrastructure; currently exploring AI for Security at UIT InSecLab.</p></section>
-    <section><h2>Education</h2><div class="cv-section-heading"><h3>University of Information Technology, VNU-HCM</h3><span>2023 — 2027 (expected)</span></div><p>B.Eng. in Computer Networks and Communications · GPA 3.52 / 4.00</p></section>
-    <section><h2>Research & Lab Experience</h2><div data-cv-experience="inseclab"><div class="cv-section-heading"><h3>{labExperience.title}</h3><span>{labExperience.date}</span></div><p>{labExperience.organization}</p><p>{labExperience.description} {labExperience.detail}</p></div><div class="cv-section-heading"><h3>Network Digital Twin Research — Project Lead</h3><span>2025 — 2026</span></div><p>UIT-supported undergraduate research · Advised by <a href={researchAdvisor.homepage}>{researchAdvisor.name}</a></p><ul><li>Built a Mininet / Ryu testbed synchronized bidirectionally with Eclipse Ditto; archived experiments measured upward sync p95 at 1.017 s over 30 trials.</li><li>Implemented anomaly detection, what-if analysis, and closed-loop mitigation. The stored controller A/B study measured h3 throughput at 0.295 Mbps OFF versus 2.146 Mbps ON under UDP flood (32 trials, 8 blocks).</li><li>Preserved experiment artifacts and offline reproduction scripts. Detector limitations and the what-if operating region are documented in the project.</li></ul><div class="cv-section-heading"><h3>State–Model–Regret for Network Routing</h3><span>2026 — Present</span></div><p>Research Advisor: <a href={researchAdvisor.homepage}>{researchAdvisor.name}</a></p><p>Ongoing study of how current-state information and action-response modeling affect expected routing decision regret. Uses controlled queueing models and simulation; findings remain exploratory.</p></section>
-    <section><h2>Selected Engineering Projects</h2><h3>Deep Reinforcement Learning for SDN Routing</h3><p>PyTorch · Gymnasium · Mininet · Ryu · Vue / Flask</p><ul><li>Implemented Dueling / Double DQN with prioritized replay, an 81-dimensional state, action masking, and curriculum learning.</li><li>Connected the agent to an SDN testbed and an OSPF comparison pipeline across congestion and failure scenarios.</li></ul><h3>Cloud Infrastructure & GitOps on AWS — Team Project</h3><p>Terraform · EKS · GitHub Actions · ArgoCD · Prometheus</p><ul><li>Contributed infrastructure as code and GitOps delivery for a three-tier application, with Blue/Green rollout analysis, observability, and security controls.</li></ul></section>
-    <section><h2>Technical Skills</h2>{profile.skills.map(group=><p><strong>{group.title}:</strong> {group.items}</p>)}</section>
-    <section><h2>Certification</h2><p>AWS Certified Solutions Architect – Associate (SAA-C03), 2025.</p></section>
-  </article></div>
+<BaseLayout title="CV | Doan Van Tai" description="Research and engineering CV for Doan Van Tai: education, network digital twin research, SDN routing, cloud projects, and technical skills.">
+  <div class="container page-header">
+    <a class="breadcrumb" href="/">← Home</a><p class="eyebrow">CURRICULUM VITAE</p><h1>Curriculum Vitae</h1>
+    <p class="page-description">A concise view of my education, research, and technical work.</p>
+    <div class="cv-actions"><a class="button button-primary" href="/files/DoanVanTai_CV.pdf" download>Download PDF <Icon name="download" size={17}/></a><button class="button button-secondary" type="button" id="print-cv">Print this CV</button></div>
+  </div>
+  <div class="container">
+    <article class="cv-document">
+      <header class="cv-print-header"><h1>Doan Van Tai</h1><p>UIT, VNU-HCM · Ho Chi Minh City, Vietnam<br/>{profile.email} · github.com/vantai13 · {Astro.site?.hostname || 'vantai13.github.io'}</p></header>
+      <section>
+        <h2>Profile</h2>
+        <p>Final-year Computer Networks and Communications student at UIT, VNU-HCM, working toward a career as a Research Engineer. Experience building network testbeds, adaptive routing systems, and cloud infrastructure; currently exploring AI for Security at UIT InSecLab.</p>
+      </section>
+      <section>
+        <h2>Education</h2>
+        <div class="cv-entry"><div class="cv-section-heading"><h3>University of Information Technology, VNU-HCM</h3><span>2023 to 2027 (expected)</span></div><p>B.Eng. in Computer Networks and Communications · GPA 3.52 / 4.00</p></div>
+      </section>
+      <section>
+        <h2>Research & Lab Experience</h2>
+        <div class="cv-entry" data-cv-experience="inseclab">
+          <div class="cv-section-heading"><h3>{labExperience.title}</h3><span>{labExperience.date}</span></div>
+          <p>{labExperience.organization}</p><p>{labExperience.description} {labExperience.detail}</p>
+        </div>
+        <div class="cv-entry">
+          <div class="cv-section-heading"><h3>Network Digital Twin Research, Project Lead</h3><span>2025 to 2026</span></div>
+          <p>UIT-supported undergraduate research · Advised by <a href={researchAdvisor.homepage}>{researchAdvisor.name}</a></p>
+          <ul><li>Built a Mininet / Ryu testbed synchronized bidirectionally with Eclipse Ditto; archived experiments measured upward sync p95 at 1.017 s over 30 trials.</li><li>Implemented anomaly detection, what-if analysis, and closed-loop mitigation. The stored controller A/B study measured h3 throughput at 0.295 Mbps OFF versus 2.146 Mbps ON under UDP flood (32 trials, 8 blocks).</li><li>Preserved experiment artifacts and offline reproduction scripts. Detector limitations and the what-if operating region are documented in the project.</li></ul>
+        </div>
+        <div class="cv-entry">
+          <div class="cv-section-heading"><h3>State-Model-Regret for Network Routing</h3><span>2026 to Present</span></div>
+          <p>Research Advisor: <a href={researchAdvisor.homepage}>{researchAdvisor.name}</a></p>
+          <p>Ongoing study of how current-state information and action-response modeling affect expected routing decision regret. Uses controlled queueing models and simulation; findings remain exploratory.</p>
+        </div>
+      </section>
+      <section>
+        <h2>Selected Engineering Projects</h2>
+        <div class="cv-entry"><h3>Deep Reinforcement Learning for SDN Routing</h3><p>PyTorch · Gymnasium · Mininet · Ryu · Vue / Flask</p><ul><li>Implemented Dueling / Double DQN with prioritized replay, an 81-dimensional state, action masking, and curriculum learning.</li><li>Connected the agent to an SDN testbed and an OSPF comparison pipeline across congestion and failure scenarios.</li></ul></div>
+        <div class="cv-entry"><h3>Cloud Infrastructure & GitOps on AWS (Team Project)</h3><p>Terraform · EKS · GitHub Actions · ArgoCD · Prometheus</p><ul><li>Contributed infrastructure as code and GitOps delivery for a three-tier application, with Blue/Green rollout analysis, observability, and security controls.</li></ul></div>
+      </section>
+      <section><h2>Technical Skills</h2>{profile.skills.map(group=><p><strong>{group.title}:</strong> {group.items}</p>)}</section>
+      <section><h2>Certification</h2><p>AWS Certified Solutions Architect (Associate) (SAA-C03), 2025.</p></section>
+    </article>
+  </div>
   <script>document.querySelector('#print-cv')?.addEventListener('click',()=>window.print());</script>
 </BaseLayout>

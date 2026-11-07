@@ -6,7 +6,7 @@ category: Research note
 date: '2026-11-06'
 ---
 
-I built DT4N to synchronize and control an SDN testbed. In State–Model–Regret, I study how the information and response models used by a controller affect its routing decisions.
+I built DT4N to synchronize and control an SDN testbed. In State-Model-Regret, I study how the information and response models used by a controller affect its routing decisions.
 
 ## Starting with a working system
 
@@ -26,7 +26,7 @@ A useful evaluation needs to connect both factors to the action selected and its
 
 ## The research question
 
-My ongoing State–Model–Regret project asks:
+My ongoing State-Model-Regret project asks:
 
 > For load-changing routing actions, how do improvements in current-state information and action-response model fidelity differ and interact in their effect on expected decision regret?
 
@@ -49,7 +49,7 @@ The connection to DT4N is a direction for further research: build systems whose 
 ## Project sources
 
 - [DT4N: system design and implementation](https://github.com/vantai13/dt4n-core)
-- [State–Model–Regret: current research status](https://github.com/vantai13/state-model-regret)
+- [State-Model-Regret: current research status](https://github.com/vantai13/state-model-regret)
 - [Decision setting and definitions](https://github.com/vantai13/state-model-regret/blob/main/notes/01_definitions_v1_3.md)
 
 This note explains the connection between the projects. It reports no new experiment or confirmed scientific contribution.

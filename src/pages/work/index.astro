@@ -3,7 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
 import { work } from '../../data/work';
 ---
-<BaseLayout title="Research & Projects — Doan Van Tai" description="Selected research and engineering work in network digital twins, adaptive routing, decision-making under uncertainty, and cloud infrastructure.">
+<BaseLayout title="Research & Projects | Doan Van Tai" description="Selected research and engineering work in network digital twins, adaptive routing, decision-making under uncertainty, and cloud infrastructure.">
   <div class="container page-header"><a class="breadcrumb" href="/">← Home</a><p class="eyebrow">RESEARCH & ENGINEERING</p><h1>All Work</h1><p class="page-description">Browse my research studies and engineering projects. Each case study describes my role, the implementation, and the evidence behind the results.</p></div>
   <section class="container page-body" aria-label="Research and project collection"><div class="filter-bar" role="group" aria-label="Filter projects"><button class="filter-button" data-filter="all" aria-pressed="true">All work</button><button class="filter-button" data-filter="research" aria-pressed="false">Research</button><button class="filter-button" data-filter="engineering" aria-pressed="false">Engineering</button></div><p class="filter-status" data-filter-status role="status">{work.length} projects shown</p><div class="project-grid">{work.map(project => <ProjectCard project={project} />)}</div></section>
 </BaseLayout>

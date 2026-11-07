@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
 import { profile, labExperience } from '../data/profile';
 ---
-<BaseLayout title="About — Doan Van Tai" description="Doan Van Tai’s research journey from building an SDN network digital twin to studying routing decision quality under imperfect information.">
+<BaseLayout title="About | Doan Van Tai" description="Doan Van Tai’s research journey from building an SDN network digital twin to studying routing decision quality under imperfect information.">
   <div class="container page-header"><a class="breadcrumb" href="/">← Home</a><p class="eyebrow">ABOUT ME</p><h1>About Doan Van Tai</h1><p class="page-description">My background, research journey, and the work I want to pursue.</p></div>
   <div class="container page-body about-page-grid">
     <article class="prose">
@@ -12,7 +12,7 @@ import { profile, labExperience } from '../data/profile';
 
       <h2>My research journey</h2>
       <p>I came to network research through building and testing systems. In <a href="/work/network-digital-twin/">DT4N</a>, I connected an SDN testbed to a digital representation and followed control commands through to their effects on the network.</p>
-      <p>That experience led me to ask how a controller chooses an action when its view of the network is incomplete. My ongoing <a href="/work/state-model-regret/">State–Model–Regret study</a> takes up that question through models and simulation. I explain the connection in <a href="/writing/from-digital-twins-to-routing-decisions/">this research note</a>.</p>
+      <p>That experience led me to ask how a controller chooses an action when its view of the network is incomplete. My ongoing <a href="/work/state-model-regret/">State-Model-Regret study</a> takes up that question through models and simulation. I explain the connection in <a href="/writing/from-digital-twins-to-routing-decisions/">this research note</a>.</p>
 
       <h2>Current lab experience</h2>
       <p>I joined <strong>UIT InSecLab</strong> in November 2026 as a <strong>{labExperience.role}</strong>, exploring AI for Security.</p>
@@ -28,7 +28,7 @@ import { profile, labExperience } from '../data/profile';
       <ul>{profile.interests.map(interest => <li>{interest}</li>)}</ul>
       <p><a href="/research/">Explore my research studies and current research question →</a></p>
       <h2>Education</h2>
-      <p><strong>University of Information Technology, VNU-HCM</strong><br/>B.Eng. Computer Networks and Communications<br/>2023–2027 (expected) · GPA 3.52 / 4.00</p>
+      <p><strong>University of Information Technology, VNU-HCM</strong><br/>B.Eng. Computer Networks and Communications<br/>2023 to 2027 (expected) · GPA 3.52 / 4.00</p>
       <h2>Technical toolkit</h2>
       <div class="skills-grid">{profile.skills.map(skill=><div class="skill-group"><h3>{skill.title}</h3><p>{skill.items}</p></div>)}</div>
       <h2>Let’s connect</h2>

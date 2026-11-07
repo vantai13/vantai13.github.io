@@ -4,7 +4,7 @@ import Icon from '../components/Icon.astro';
 import ExperienceTimeline from '../components/ExperienceTimeline.astro';
 import { profile, researchAdvisor } from '../data/profile';
 ---
-<BaseLayout title="Experience & Education — Doan Van Tai" description="Doan Van Tai’s Research Intern role at UIT InSecLab, undergraduate network research, education at UIT–VNU-HCM, and AWS certification.">
+<BaseLayout title="Experience & Education | Doan Van Tai" description="Doan Van Tai’s Research Intern role at UIT InSecLab, undergraduate network research, education at UIT, VNU-HCM, and AWS certification.">
   <div class="container page-header">
     <a class="breadcrumb" href="/">← Home</a>
     <p class="eyebrow">EXPERIENCE & EDUCATION</p>
@@ -16,7 +16,7 @@ import { profile, researchAdvisor } from '../data/profile';
       <div class="experience-intro">
         <h2 id="research-experience">Research & lab experience</h2>
         <p>I’m currently a Research Intern at UIT InSecLab, exploring AI for Security. This is separate from my undergraduate studies of Network Digital Twins and routing decisions.</p>
-        <p>My DT4N and State–Model–Regret studies are supervised by <a class="text-link" href={researchAdvisor.homepage} target="_blank" rel="noopener noreferrer">{researchAdvisor.name}<Icon size={13} /></a>.</p>
+        <p>My DT4N and State-Model-Regret studies are supervised by <a class="text-link" href={researchAdvisor.homepage} target="_blank" rel="noopener noreferrer">{researchAdvisor.name}<Icon size={13} /></a>.</p>
         <p>{researchAdvisor.affiliation}</p>
         <a class="text-link" href="/cv/">View my CV <Icon size={16} /></a>
       </div>
@@ -27,12 +27,12 @@ import { profile, researchAdvisor } from '../data/profile';
         <h2 id="education-title">Education</h2>
         <h3>{profile.university}</h3>
         <p>B.Eng. in Computer Networks and Communications</p>
-        <p>2023–2027 (expected) · GPA 3.52 / 4.00</p>
+        <p>2023 to 2027 (expected) · GPA 3.52 / 4.00</p>
         <a class="text-link" href="/about/">More about me <Icon name="arrow-right" size={15} /></a>
       </section>
       <section class="info-card" aria-labelledby="certification-title">
         <h2 id="certification-title">Certification</h2>
-        <h3>AWS Certified Solutions Architect – Associate</h3>
+        <h3>AWS Certified Solutions Architect (Associate)</h3>
         <p>Amazon Web Services · SAA-C03 · 2025</p>
         <a class="text-link" href="/projects/">Explore my engineering projects <Icon name="arrow-right" size={15} /></a>
       </section>
