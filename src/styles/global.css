@@ -53,6 +53,7 @@ a:focus-visible,button:focus-visible { outline:2px solid var(--accent); outline-
 .hero-statement { margin-top:24px; font-family:var(--serif); font-size:32px; line-height:1.2; letter-spacing:-.7px; }
 .hero-description { margin-top:24px; color:var(--muted); max-width:470px; font-size:15px; line-height:1.85; }
 .hero-description strong { font-weight:500; color:var(--ink); }
+.hero-description+.hero-description { margin-top:12px; }
 .hero-actions { display:flex; align-items:center; gap:30px; margin-top:33px; }
 .button { display:inline-flex; align-items:center; justify-content:center; gap:18px; padding:13px 21px; font-size:12px; font-weight:500; border-radius:5px; transition:background .2s,transform .2s; }
 .button-primary { color:var(--bg); background:var(--accent); border:1px solid var(--accent); }

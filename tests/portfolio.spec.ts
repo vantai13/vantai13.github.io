@@ -10,7 +10,7 @@ test('home, project details, and contact links are usable', async ({ page }) => 
   await page.getByRole('link', { name: 'Explore my research' }).click();
   await expect(page).toHaveURL(/\/research\/$/);
   await page.getByRole('link', { name: 'Read Network Digital Twin', exact:true }).click();
-  await expect(page.getByRole('heading', { name:'A digital twin for intelligent network management' })).toBeVisible();
+  await expect(page.getByRole('heading', { name:'Network Digital Twin for Intelligent Network Management' })).toBeVisible();
   await expect(page.getByRole('heading', { name:'Limitations & open questions' })).toBeVisible();
   await page.getByRole('link', { name:'Discuss this project' }).click();
   await expect(page.locator('a[href^="mailto:"]').first()).toHaveAttribute('href','mailto:taidoan.13072005@gmail.com');
@@ -61,7 +61,7 @@ test('all internal links, images, and PDF resolve; private fields are excluded',
   for(const route of pages) {
     const response=await page.goto(route); expect(response?.status(),route).toBe(200);
     const text=await page.locator('body').innerText();
-    expect(text).not.toMatch(/InSecLab|Student ID|LinkedIn|ORCID|Google Scholar/);
+    expect(text).not.toMatch(/Student ID|LinkedIn|ORCID|Google Scholar/);
     expect(text).not.toMatch(/\b0(?:[ .-]?\d){9}\b|\+84(?:[ .-]?\d){9}\b/);
     await expect(page.locator('a[href^="tel:"]')).toHaveCount(0);
     for(const href of await page.locator('a[href^="/"], img[src^="/"]').evaluateAll(els=>els.map(el=>el.getAttribute('href')||el.getAttribute('src')||'')))targets.add(href);

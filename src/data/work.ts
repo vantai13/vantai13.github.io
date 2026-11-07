@@ -15,7 +15,7 @@ export type Work = {
 export const work: Work[] = [
   {
     kind: 'research', slug: 'network-digital-twin', index: '01',
-    title: 'A digital twin for intelligent network management', shortTitle: 'Network Digital Twin',
+    title: 'Network Digital Twin for Intelligent Network Management', shortTitle: 'Network Digital Twin',
     category: 'Network Digital Twins', status: 'Completed research project', period: '2025 — 2026',
     summary: 'Connecting an SDN testbed to a living network model, with bidirectional synchronization, what-if analysis, and a closed control loop.',
     tags: ['Mininet', 'Eclipse Ditto', 'Python', 'Ryu'],

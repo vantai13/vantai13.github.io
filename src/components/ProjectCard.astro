@@ -17,6 +17,6 @@ const Heading = headingLevel === 2 ? 'h2' : 'h3';
     <p>{project.summary}</p>
     {project.advisor && <p class="project-advisor">Research Advisor: <a href={project.advisor.homepage} target="_blank" rel="noopener noreferrer">{project.advisor.name}</a></p>}
     <div class="stack-tags">{project.tags.slice(0, 3).map(tag => <span>{tag}</span>)}</div>
-    <a class="text-link" href={`/work/${project.slug}/`}>Read the project <Icon name="arrow-right" size={16} /></a>
+    <a class="text-link" href={`/work/${project.slug}/`}>Read case study <Icon name="arrow-right" size={16} /></a>
   </div>
 </article>

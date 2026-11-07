@@ -41,11 +41,15 @@ npm run preview
 
 The three writing pieces are draft explanatory notes adapted from existing project documentation, dated 6 November 2026. They are not publications. Publication, LinkedIn, Scholar, and ORCID sections are intentionally absent until real entries are supplied. Roles requiring confirmation are excluded from both the website and this public source tree.
 
+The owner confirmed the Research Intern role at UIT InSecLab, beginning November 2026, on 7 November 2026. Its AI for Security activities are described as current learning and exploratory work, separately from the DT4N and State–Model–Regret studies. The role is shared by the experience timeline, About page, and CV through `labExperience` in `src/data/profile.ts`. No lab advisor, publication, research outcome, or credential verification URL is inferred.
+
 Light mode is the default. The theme toggle persists the visitor's choice in browser local storage. The public CV contains no phone number or student identifier.
 
 ## Page structure
 
 The main menu opens dedicated pages: Home, About, Research, Projects, Experience, Writing, and CV. Homepage sections remain short previews. The original homepage anchor URLs still work for existing links.
+
+The homepage introduces the person, project purpose, and role. Experiment metrics stay in the case studies and CV, with their context and limitations. The Research overview includes a short Network Digital Twin explanation before the research question. The main personal tagline is retained; ordinary headings use plain labels without trailing full stops.
 
 Research and engineering projects share data in `src/data/work.ts`; each entry has an explicit `kind` field. `ProjectCard.astro` renders collection cards, and `ExperienceTimeline.astro` supplies the full experience timeline and its shorter homepage version. Case studies retain their `/work/<slug>/` URLs and link back to the corresponding Research or Projects overview.
 

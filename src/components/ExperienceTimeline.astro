@@ -5,11 +5,12 @@ interface Props { compact?: boolean; }
 const { compact = false } = Astro.props;
 ---
 <div class="timeline">
-  {experience.map(item => <article class="timeline-item">
+  {experience.map(item => <article class="timeline-item" id={compact ? undefined : item.id} data-experience-kind={item.kind}>
     <span class="timeline-date">{item.date}</span>
     <h3><a href={item.href}>{item.title}</a></h3>
-    <p class="timeline-role">{item.role}</p>
+    <p class="timeline-role">{item.kind === 'internship' ? item.organization : item.role}</p>
     {!compact && <><p>{item.description}</p><span class="timeline-detail">{item.detail}</span></>}
     {item.advisor && <p>Research Advisor: <a class="text-link" href={item.advisor.homepage} target="_blank" rel="noopener noreferrer">{item.advisor.name}<Icon size={12} /></a></p>}
+    {!compact && item.topics && <div class="stack-tags">{item.topics.map(topic => <span>{topic}</span>)}</div>}
   </article>)}
 </div>

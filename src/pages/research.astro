@@ -11,16 +11,18 @@ const currentStudy = research.find(project => project.slug === 'state-model-regr
   <div class="container page-header">
     <a class="breadcrumb" href="/">← Home</a>
     <p class="eyebrow">RESEARCH</p>
-    <h1>Networks, models,<br />and routing decisions.</h1>
-    <p class="page-description">I study how network information and response models affect routing decisions, through controlled simulation and SDN testbeds.</p>
+    <h1>Research</h1>
+    <p class="page-description">Two connected studies: building a Network Digital Twin and examining the routing decisions a controller makes with imperfect information.</p>
   </div>
   <div class="container page-body">
     <section class="research-overview" aria-labelledby="research-question">
       <div class="prose">
+        <h2>What is a Network Digital Twin?</h2>
+        <p>A Network Digital Twin is a digital representation of a network that uses operational data to reflect its state and support analysis, prediction, or control.</p>
         <h2 id="research-question">Current research question</h2>
         <p>{currentStudy?.researchQuestion}</p>
         <h2>From DT4N to State–Model–Regret</h2>
-        <p>DT4N connects telemetry, a network model, and control actions in an SDN testbed. It provides the systems background for my current study of the decisions made with that information.</p>
+        <p>In DT4N, I implemented the observation and control paths of an SDN testbed. The case study explains the architecture, how control actions are checked, and the limits of the experiments.</p>
         <p>State–Model–Regret uses controlled two-path queueing models to separate the effects of current-state information and response modeling. It remains exploratory research; the case study records the comparison scope, evidence, and unresolved questions.</p>
       </div>
       <aside class="info-card research-context" aria-label="Research context">

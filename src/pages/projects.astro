@@ -8,8 +8,8 @@ const projects = work.filter(project => project.kind === 'engineering');
   <div class="container page-header">
     <a class="breadcrumb" href="/">← Home</a>
     <p class="eyebrow">ENGINEERING PROJECTS</p>
-    <h1>Engineering projects.</h1>
-    <p class="page-description">Selected implementations in SDN routing and cloud infrastructure, from the decision logic to the systems used to run and inspect it.</p>
+    <h1>Selected Projects</h1>
+    <p class="page-description">Engineering work in SDN routing and cloud infrastructure, with source code and an account of how each system was built and evaluated.</p>
   </div>
   <section class="container page-body" aria-label="Engineering project collection">
     <div class="project-grid">{projects.map(project => <ProjectCard project={project} />)}</div>

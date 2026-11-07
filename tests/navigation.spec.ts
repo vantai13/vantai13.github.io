@@ -2,12 +2,12 @@ import { test, expect } from '@playwright/test';
 
 const destinations = [
   { label: 'Home', path: '/', title: 'Doan Van Tai.' },
-  { label: 'About', path: '/about/', title: 'About Doan Van Tai.' },
-  { label: 'Research', path: '/research/', title: 'Networks, models, and routing decisions.' },
-  { label: 'Projects', path: '/projects/', title: 'Engineering projects.' },
-  { label: 'Experience', path: '/experience/', title: 'Experience and education.' },
-  { label: 'Writing', path: '/writing/', title: 'Writing and research notes.' },
-  { label: 'CV', path: '/cv/', title: 'Research & engineering CV.' },
+  { label: 'About', path: '/about/', title: 'About Doan Van Tai' },
+  { label: 'Research', path: '/research/', title: 'Research' },
+  { label: 'Projects', path: '/projects/', title: 'Selected Projects' },
+  { label: 'Experience', path: '/experience/', title: 'Experience & Education' },
+  { label: 'Writing', path: '/writing/', title: 'Writing & Notes' },
+  { label: 'CV', path: '/cv/', title: 'Curriculum Vitae' },
 ];
 
 for (const width of [390, 1440]) {
@@ -62,11 +62,12 @@ test('research, engineering, and experience have distinct content with confirmed
   await expect(page.locator('[data-project-category="engineering"]')).toHaveCount(2);
   await expect(page.locator('[data-project-category="research"]')).toHaveCount(0);
   await page.goto('/experience/');
-  await expect(page.locator('.timeline-item')).toHaveCount(2);
-  for (const item of await page.locator('.timeline-item').all()) await expect(item).toContainText('Dr. Huynh Van Dang');
+  await expect(page.locator('.timeline-item')).toHaveCount(3);
+  for (const item of await page.locator('[data-experience-kind="research"]').all()) await expect(item).toContainText('Dr. Huynh Van Dang');
   await expect(page.getByRole('heading', { name: 'Education', exact: true })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Certification', exact: true })).toBeVisible();
-  await expect(page.locator('body')).not.toContainText('InSecLab');
+  await expect(page.locator('#inseclab')).toContainText('Research Intern');
+  await expect(page.locator('#inseclab')).toContainText('AI for Security');
 });
 
 test('case studies and notes retain their section and appropriate overview links', async ({ page }) => {
