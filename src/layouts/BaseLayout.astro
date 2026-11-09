@@ -128,5 +128,8 @@ const activeSection = Astro.props.activeSection ?? navigation.find(item => item.
       }
       initialize();
     </script>
+    <!-- Cloudflare Web Analytics -->
+    <script is:inline type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "26b73056ec7d45b69236c7a040cdf777"}'></script>
+    <!-- End Cloudflare Web Analytics -->
   </body>
 </html>

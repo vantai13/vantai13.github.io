@@ -1,8 +1,10 @@
 # Doan Van Tai — Research & Engineering
 
-A personal academic and engineering portfolio built with **Astro 7**, **Tailwind CSS 4**, Markdown, and structured TypeScript data. Static output, no backend, no analytics, and locally bundled fonts.
+A personal academic and engineering portfolio built with **Astro 7**, **Tailwind CSS 4**, Markdown, and structured TypeScript data. Static output, no backend, and locally bundled fonts.
 
 Maintainer: **Doan Van Tai**. Website: **https://taidv.id.vn/**.
+
+Cloudflare Web Analytics is installed in `src/layouts/BaseLayout.astro` using the site's beacon snippet. The shared layout includes it once per generated HTML page. The site continues to use GitHub Pages and its existing custom domain.
 
 ## Run locally
 
